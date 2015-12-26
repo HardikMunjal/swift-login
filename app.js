@@ -1,9 +1,14 @@
 var express = require('express');
 var app = express();
 var router = express.Router();
+var bodyParser = require('body-parser');
 
 
 app.use(require('./routes/corsheaders'));
+//add body parser thing before router but y?
+app.use(bodyParser.json({
+  limit: '10mb'
+}));
 app.use(router);
 require('./routes')(router);
 

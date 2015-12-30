@@ -48,44 +48,32 @@ res.json(body);
 
 
 createUser:function(req, res, next) {
-  var nano = require('nano')('http://localhost:5984');
-//nano.db.create('books');
+var nano = require('nano')('http://localhost:5984');
 var books = nano.db.use('swiftmkt');
-//http://127.0.0.1:5984/swiftmkt/ff0b7301d3644d9289d3024b1a000648?revs_info=true
-//console.log(books);
-//Insert a book document in the books database
-// books.insert({name: 'The Art of war'}, null, function(err, body) {
-//   if (!err){
-//     console.log(body);
-//   }
-// });
 
-books.list(function(err, body)
-{ 
-  body.rows.forEach(function(getRev) { 
+// books.list(function(err, body)
+// { 
+//   body.rows.forEach(function(getRev) { 
   
-  var rev_id = body.rows[0].value;
-  console.log(rev_id);
-    })
-})
+//   var rev_id = body.rows[0].value;
+//   console.log(rev_id);
+//     })
+// })
 
 console.log(req.body);
+var user = req.body;
+user.status = '1';
+user.created_at = '7656576';
+user["updated_at"] = '8797898';
+user["role_permission"] = 'user';
 
-books.get('ff0b7301d3644d9289d3024b1a000648', { revs_info: true }, function(err, body) {
-  if (!err)
-    console.log(body);
+console.log('user' +user);
 
+books.insert(user, function(err, body) {
+  if (err)
+    console.log(err);
+    res.json(err);
 
-//Get a list of all books
-
-//  books.list(function(err, body){
-// //console.log(body.rows[0].value);
-// body.rows.forEach(function(doc) {
-//       console.log(doc);
-//     });
-
-res.json(body);
-   //console.log(body.rows[0].value);
  });
 }
 };

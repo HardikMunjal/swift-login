@@ -1,0 +1,41 @@
+create database swiftmkt;
+use swiftmkt;
+create table UserBasicInfo(
+user_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+first_name varchar(100) NOT NULL,
+last_name varchar(100),
+password varchar(100) NOT NULL,
+gender varchar(50),
+dob timestamp,
+status boolean NOT NULL,
+created_at timestamp,
+updated_at timestamp
+);
+
+create table UserPermission(
+perm_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+perm_name varchar(200) NOT NULL,
+created_by varchar(100),
+created_at timestamp,
+updated_at timestamp
+);
+
+CREATE TABLE UserRole
+(
+role_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+role_name varchar(200) NOT NULL,
+perm_id int,
+created_by varchar(100),
+created_at timestamp,
+updated_at timestamp,
+FOREIGN KEY (perm_id) REFERENCES UserPermission(perm_id)
+);
+
+CREATE TABLE PermissionRole
+(
+pr_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+role_id int,
+perm_id int,
+FOREIGN KEY (perm_id) REFERENCES UserPermission(perm_id),
+FOREIGN KEY (role_id) REFERENCES UserRole(role_id)
+);

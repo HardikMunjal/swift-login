@@ -1,4 +1,5 @@
 var team = require('./team');
+var userInfo = require('./userInfo');
 
 module.exports = function (app) {
 
@@ -8,13 +9,10 @@ module.exports = function (app) {
 			    res.status(200).send();
 			  });
  app.get('/get/teams', team.get);
-
  app.get('/get/users', team.getUser);  
-
  app.post('/create/user', team.createUser);
 
- //app.get('/test', function(req, res, next) {
-	//		    res.render('test.jade');
-	//		  });
+ //Live APIS
+ app.get('/register/user', userInfo.getRegistrationDetail, userInfo.validate, userInfo.saveUser);
 
 };

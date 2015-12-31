@@ -15,4 +15,9 @@ module.exports = function (app) {
  //Live APIS
  app.get('/register/user', userInfo.getRegistrationDetail, userInfo.validate, userInfo.saveUser);
 
+
+ //after creation i have to move this to frontend application
+ app.get('/open/chat', function(req, res, next) {
+			    res.render('chat.html');
+			  });
 };

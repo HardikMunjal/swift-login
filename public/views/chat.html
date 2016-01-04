@@ -83,7 +83,7 @@
   });
 
    socket.on('new message',function(data){
-     $chat.append(data + " From ");
+     $chat.append('<b>' +data.nick+ ': </b>' +data.msg +" From ");
    });
    socket.on('ip address',function(data){
      $chat.append(data + "<br/>");

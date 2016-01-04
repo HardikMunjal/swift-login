@@ -47,7 +47,7 @@ server.listen(5000, function () {
 
 	socket.on('send message',function(data){
 		var address = socket.handshake.address;
-		io.sockets.emit('new message', data);
+		io.sockets.emit('new message', {msg: data , nick :socket.nickname});
 		io.sockets.emit('ip address',address);
         // socket.broadcast.emit('new message',data);
     });

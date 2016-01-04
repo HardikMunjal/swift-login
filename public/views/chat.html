@@ -54,7 +54,7 @@
         $('#nickWrap').hide();
         $('#contentWrap').show();
       } else {
-        $nickError.html('Bhai atul chutiya hai koi dusra username choose karo');
+        $nickError.html('Bro, This username is already Taken, Please choose different');
       }
 
     });
@@ -63,17 +63,13 @@
 
    socket.on('usernames',function(data){
     var html = '';
-    for(i=0; i<data.length; i++)
+    for(i=0; i<data.names.length; i++)
     {
-      html += data[i] + '<br>'
+      html += data.names[i] + ' from ' +data.address+ '<br>'
     }
     $users.html(html);
   });
-   socket.on('ip address',function(data){
-     $users.append(data);
-   });
-
-
+   
    $messageForm.submit(function(e){
 
     e.preventDefault();
@@ -83,10 +79,7 @@
   });
 
    socket.on('new message',function(data){
-     $chat.append('<b>' +data.nick+ ': </b>' +data.msg +" From ");
-   });
-   socket.on('ip address',function(data){
-     $chat.append(data + "<br/>");
+     $chat.append('<b>' +data.nick+ ': </b>' +data.msg+ '<br/>');
    });
 });
 

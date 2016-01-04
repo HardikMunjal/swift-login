@@ -42,13 +42,12 @@ server.listen(5000, function () {
 		console.log(address);
 		console.log(nicknames);
 		//nicknames.append(address);
-		io.sockets.emit('usernames', nicknames);
+		io.sockets.emit('usernames', { names : nicknames , address : address });
 	}
 
 	socket.on('send message',function(data){
 		var address = socket.handshake.address;
-		io.sockets.emit('new message', {msg: data , nick :socket.nickname});
-		io.sockets.emit('ip address',address);
+		io.sockets.emit('new message', {msg: data , nick :socket.nickname });
         // socket.broadcast.emit('new message',data);
     });
 	socket.on('disconnect',function(data){

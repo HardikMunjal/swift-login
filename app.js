@@ -6,10 +6,10 @@ var server = require('http').createServer(app);
 
 
 server.listen(5000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-  console.log('Example app listening at http://%s:%s', host, port);
- });
+	var host = server.address().address;
+	var port = server.address().port;
+	console.log('Example app listening at http://%s:%s', host, port);
+});
 
 // var server = app.listen(5000, function () {
 //   var host = server.address().address;
@@ -17,22 +17,55 @@ server.listen(5000, function () {
 //   console.log('Example app listening at http://%s:%s', host, port);
 // });
 
-var io = require('socket.io').listen(server);
+	var nicknames=[];
+	var io = require('socket.io').listen(server);
 
-io.sockets.on('connection', function(socket){
-	 console.log('a user connected');
-     socket.on('send message',function(data){
-        io.sockets.emit('new message', data);
-       // socket.broadcast.emit('new message',data);
+	io.sockets.on('connection', function(socket){
+
+		socket.on('new user',function(data, callback){
+			var address = socket.handshake.address;
+			if (nicknames.indexOf(data)!= -1){
+				callback(false);
+			}else{
+				callback(true);
+				//var dat = data + address;
+				//data.append(address);
+				socket.nickname = data;
+				nicknames.push(socket.nickname);
+	//io.sockets.emit('usernames',nicknames);
+	updateNicknames();
+	}
+	});
+
+	function updateNicknames(){
+		var address = socket.handshake.address;
+		console.log(address);
+		console.log(nicknames);
+		//nicknames.append(address);
+		io.sockets.emit('usernames', nicknames);
+	}
+
+	socket.on('send message',function(data){
+		var address = socket.handshake.address;
+		io.sockets.emit('new message', data);
+		io.sockets.emit('ip address',address);
+        // socket.broadcast.emit('new message',data);
     });
-}); 
+	socket.on('disconnect',function(data){
+		if(!socket.nickname) return;
+		nicknames.splice(nicknames.indexOf(socket.nickname),1);
+		updateNicknames();
+
+	});   
+});
+
 
 
 app.use(require('./routes/corsheaders'));
 
 //add body parser thing before router to parse data in req body.
 app.use(bodyParser.json({
-  limit: '10mb'
+	limit: '10mb'
 }));
 app.use(router);
 require('./routes')(router);

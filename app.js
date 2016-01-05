@@ -21,7 +21,7 @@ server.listen(5000, function () {
 	var io = require('socket.io').listen(server);
 
 	io.sockets.on('connection', function(socket){
-
+        console.log('socket connected');
 		socket.on('new user',function(data, callback){
 			var address = socket.handshake.address;
 			if (nicknames.indexOf(data)!= -1){
@@ -42,7 +42,7 @@ server.listen(5000, function () {
 		console.log(address);
 		console.log(nicknames);
 		//nicknames.append(address);
-		io.sockets.emit('usernames', { names : nicknames , address : address });
+		io.sockets.emit('usernames', {names : nicknames , address : address });
 	}
 
 	socket.on('send message',function(data){
@@ -50,6 +50,20 @@ server.listen(5000, function () {
 		io.sockets.emit('new message', {msg: data , nick :socket.nickname });
         // socket.broadcast.emit('new message',data);
     });
+
+
+    // ************ Start********* Node Main Code for socket **************** 
+
+    socket.on('add name',function(data){
+		var address = socket.handshake.address;
+		console.log("mja aa gya" +data);
+		//io.sockets.emit('new message', {msg: data , nick :socket.nickname });
+        // socket.broadcast.emit('new message',data);
+    });
+
+    // ************ End*********** Node Main Code for socket **************** 
+
+
 	socket.on('disconnect',function(data){
 		if(!socket.nickname) return;
 		nicknames.splice(nicknames.indexOf(socket.nickname),1);

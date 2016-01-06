@@ -1,13 +1,16 @@
 var mysql = require('mysql');
 
+//*************Currently not in use*********************
 var connection = mysql.createPool({
   connectionLimit: 10,
-  host: 'localhost',
-        user: 'root',
-        password : 'root',
-        port : 3306, //port mysql
-        database:'swiftmkt'
+    host: 'localhost',
+            user: 'root',
+            password : 'root',
+            port : 3306, //port mysql
+            database:'swiftmkt'
 });
+
+console.log('coming here');
 
 connection.on('error', function(err) {
   console.log(err);

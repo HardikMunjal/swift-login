@@ -4,6 +4,20 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var server = require('http').createServer(app);
 
+//***************MYSQL CONNECTION CONFIGURATION***************************
+var connection  = require('express-myconnection'); 
+var mysql = require('mysql');
+
+app.use(
+    connection(mysql,{
+        host: 'localhost',
+        user: 'root',
+        password : 'root',
+        port : 3306, //port mysql
+        database:'swiftmkt'
+       },'pool') //or single
+  );
+
 
 server.listen(5000, function () {
 	var host = server.address().address;
@@ -32,10 +46,10 @@ server.listen(5000, function () {
 				//data.append(address);
 				socket.nickname = data;
 				nicknames.push(socket.nickname);
-	//io.sockets.emit('usernames',nicknames);
-	updateNicknames();
-	}
-	});
+				//io.sockets.emit('usernames',nicknames);
+				updateNicknames();
+	          }
+	      });
 
 	function updateNicknames(){
 		var address = socket.handshake.address;
@@ -52,7 +66,7 @@ server.listen(5000, function () {
     });
 
 
-    // ************ Start********* Node Main Code for socket **************** 
+    // ************ Start ********* Node Main Code for socket **************** 
 
     socket.on('add name',function(data){
 		var address = socket.handshake.address;
@@ -61,7 +75,7 @@ server.listen(5000, function () {
         // socket.broadcast.emit('new message',data);
     });
 
-    // ************ End*********** Node Main Code for socket **************** 
+    // ************ End *********** Node Main Code for socket **************** 
 
 
 	socket.on('disconnect',function(data){
@@ -92,6 +106,8 @@ app.set('view engine', 'html');
 //asynchronus code ,default nature of node
 // cors = require('./routes/corsheaders');
 // app.use(cors());
+
+
 
 
 

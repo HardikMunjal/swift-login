@@ -13,8 +13,8 @@ module.exports = function (app) {
  app.post('/create/user', team.createUser);
 
  //Live APIS
- app.get('/get/user', userInfo.getRegistrationDetail, userInfo.validate, userInfo.saveUser);
- app.post('/register/user', userInfo.getRegistrationDetail, userInfo.validate, userInfo.saveUser);
+ app.get('/get/user', userInfo.getRegistrationDetail, userInfo.saveUser);
+ app.post('/register/user', userInfo.validate, userInfo.saveUser);
 
 
  //after creation i have to move this to frontend application

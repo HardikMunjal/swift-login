@@ -39,3 +39,6 @@ perm_id int,
 FOREIGN KEY (perm_id) REFERENCES UserPermission(perm_id),
 FOREIGN KEY (role_id) REFERENCES UserRole(role_id)
 );
+
+ALTER TABLE UserBasicInfo ADD email VARCHAR(255) after password;
+

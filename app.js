@@ -8,15 +8,15 @@ var server = require('http').createServer(app);
 var connection  = require('express-myconnection'); 
 var mysql = require('mysql');
 
-app.use(
-    connection(mysql,{
-        host: 'localhost',
-        user: 'root',
-        password : 'root',
-        port : 3306, //port mysql
-        database:'swiftmkt'
-       },'pool') //or single
-  );
+// app.use(
+//     connection(mysql,{
+//         host: 'localhost',
+//         user: 'root',
+//         password : 'root',
+//         port : 3306, //port mysql
+//         database:'swiftmkt'
+//        },'pool') //or single
+//   );
 
 
 server.listen(5000, function () {

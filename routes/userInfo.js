@@ -1,51 +1,30 @@
 'use strict';
 
-//var mysql   = require('mysql');
+var userCrudModel = require('../model/addUser');
 
 var userInfo = {
 
 	getRegistrationDetail : function(req, res, next){
 
-        
-		req.getConnection(function(err,connection) {
-
-			var query = connection.query('SELECT * FROM UserBasicInfo',function(err,rows) {
-			 	if(err)
-					console.log("Error Selecting : %s ",err );
-
-				res.json(rows);
-			    });
-            //console.log(query.sql);
-         });
-
-		// var connection = mysql.createConnection({
-		//   host: 'localhost',
-		//         user: 'root',
-		//         password : 'root',
-		//         port : 3306, //port mysql
-		//         database:'swiftmkt'
-		// });
-
-		// connection.connect();
-		// connection.query('SELECT * FROM UserBasicInfo', function(err, rows, fields) {
-		//   if (err) throw err;
-
-		//   console.log('The solution is: ', rows);
-		// });
-		// connection.end();
+         var options='hardik';
+         userCrudModel.registerUser(options, function(err, result) {
+          if (err) {
+            return next(err);
+          }
+          res.json(result);
+         
+        });
     },
 
     fetchDetails : function(req, res, next){
 
-        
 		req.getConnection(function(err,connection) {
 
 			var query = connection.query('SELECT * FROM UserBasicInfo',function(err,rows) {
 			 	if(err)
 					console.log("Error Selecting : %s ",err );
 			 
-			 	
-				res.json(rows);
+    				res.json(rows);
 			    });
             //console.log(query.sql);
          });
@@ -106,19 +85,10 @@ var userInfo = {
     				var query2=connection.query('INSERT INTO UserCredential SET ?', data2, function(err, result) {
     	
 				    	if (err) { 
-				      	//console.log(err);
 				      	connection.rollback(function() {
 				      		throw err;
 				      	});
 				      }  
-				      // connection.commit(function(err) {
-				      // 	if (err) { 
-				      // 		connection.rollback(function() {
-				      // 			throw err;
-				      // 		});
-				      // 	}
-			       //    console.log('success!');
-			       //    });
                   });
     				console.log(query2.sql);
 
@@ -153,17 +123,6 @@ var userInfo = {
              });
 
      res.json('Records inserted REspectively');
-
-        // var query = connection.query("INSERT INTO UserBasicInfo set ? ",data, function(err, rows)   {
-        //   if (err)
-        //       console.log("Error inserting : %s ",err );
-
-        //    console.log(rows.insertId);
-        //   res.redirect('/get/user');
-        // });
-
-       // console.log(query.sql); get raw query
-       
 
    });
 

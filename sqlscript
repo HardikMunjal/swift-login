@@ -31,14 +31,43 @@ updated_at timestamp,
 FOREIGN KEY (perm_id) REFERENCES UserPermission(perm_id)
 );
 
-CREATE TABLE PermissionRole
+CREATE TABLE UserPermissionRole
 (
-pr_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+upr_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 role_id int,
-perm_id int,
-FOREIGN KEY (perm_id) REFERENCES UserPermission(perm_id),
+user_id int,
+FOREIGN KEY (user_id) REFERENCES UserBasicInfo(user_id),
 FOREIGN KEY (role_id) REFERENCES UserRole(role_id)
 );
 
-ALTER TABLE UserBasicInfo ADD email VARCHAR(255) after password;
 
+
+ALTER TABLE UserBasicInfo ADD email VARCHAR(255) after password;
+ALTER TABLE UserBasicInfo ADD mobile int after email;
+
+
+
+create table UserCredential(
+userCred_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+email VARCHAR(255) NOT NULL,
+password varchar(100) NOT NULL,
+mobile int,
+user_id int,
+last_updated_by varchar(100),
+created_at timestamp,
+updated_at timestamp,
+FOREIGN KEY (user_id) REFERENCES UserBasicInfo(user_id)
+);
+
+
+INSERT INTO `swiftmkt`.`UserPermission`
+(
+`perm_name`,
+`created_by`,
+`created_at`,
+`updated_at`)
+VALUES(
+'User_chat',
+'hardik.munjaal@gmail.com',
+'11111',
+'11111111');

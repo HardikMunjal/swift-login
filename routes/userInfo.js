@@ -89,11 +89,13 @@ var userInfo = {
     				var log = 'Post ' + result.insertId + ' added';
     				console.log(log);
 
+    				var user_id = result.insertId;
+
     				var data2 = {
     					email : userData.email,
     					password : userData.password,
     					mobile : userData.mobile,
-    					user_id : result.insertId,
+    					user_id : user_id,
     					last_updated_by : 'user',
     					created_at : userData.created_at,
     					updated_at : userData.updated_at
@@ -101,30 +103,56 @@ var userInfo = {
     				};
     				console.log(data2);
 
-    				var queryx=connection.query('INSERT INTO UserCredential SET ?', data2, function(err, result) {
-    	//var log2 = 'Post ' + result.insertId + ' added';
-    	//console.log(log2);
-    	if (err) { 
-      	//console.log(err);
-      	connection.rollback(function() {
-      		throw err;
-      	});
-      }  
-      connection.commit(function(err) {
-      	if (err) { 
-      		connection.rollback(function() {
-      			throw err;
-      		});
-      	}
-      	console.log('success!');
-      });
-  });
-    				console.log(queryx.sql);
+    				var query2=connection.query('INSERT INTO UserCredential SET ?', data2, function(err, result) {
+    	
+				    	if (err) { 
+				      	//console.log(err);
+				      	connection.rollback(function() {
+				      		throw err;
+				      	});
+				      }  
+				      // connection.commit(function(err) {
+				      // 	if (err) { 
+				      // 		connection.rollback(function() {
+				      // 			throw err;
+				      // 		});
+				      // 	}
+			       //    console.log('success!');
+			       //    });
+                  });
+    				console.log(query2.sql);
+
+//*********** role_id :1 ===== User_pr1 *************DEfault Permission for all new user***********************
+
+    				var data3 = {
+    					
+    					user_id : user_id,
+    					role_id : '1'
+
+    				};
+
+    				var query3=connection.query('INSERT INTO UserPermissionRole SET ?', data3, function(err, result) {
+    	
+				    	if (err) { 
+				      	//console.log(err);
+				      	connection.rollback(function() {
+				      		throw err;
+				      	});
+				      }  
+				      connection.commit(function(err) {
+				      	if (err) { 
+				      		connection.rollback(function() {
+				      			throw err;
+				      		});
+				      	}
+			          console.log('success! TRANSACTION COMPLETED SUCCESSFULLY');
+			          });
+                  });
 
     			});
-});
+             });
 
-
+     res.json('Records inserted REspectively');
 
         // var query = connection.query("INSERT INTO UserBasicInfo set ? ",data, function(err, rows)   {
         //   if (err)

@@ -71,3 +71,21 @@ VALUES(
 'hardik.munjaal@gmail.com',
 '11111',
 '11111111');
+
+INSERT INTO `swiftmkt`.`UserRole`
+(
+`role_name`,
+`perm_id`,
+`created_by`,
+`created_at`,
+`updated_at`)
+VALUES
+(
+'super_admin',
+'2',
+'hardik.munjal@gmail.com',
+'222222',
+'222222');
+
+
+//Here we should also make 1 more layer (if application grows) from userRole where 1 more table should be created which contains only role_id and perm_id

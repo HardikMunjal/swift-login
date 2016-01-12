@@ -36,24 +36,36 @@ var userInfo = {
     	var userData = JSON.parse(JSON.stringify(req.body));
 
     	userData.status = '1';
-    	userData.email = 'hardik.munjaal@gmail.com';
-    	userData.mobile = '9717060569';
+    	//userData.email = 'hardik.munjaal@gmail.com';
+    	//userData.mobile = '9717060569';
     	userData.created_at = '7656576';
     	userData["updated_at"] = '8797898';
 
-    	req.getConnection(function (err, connection) {
+        var data = {
+                first_name : userData.first_name,
+                last_name : userData.last_name,
+                email : userData.email,
+                mobile : userData.mobile,
+                gender : userData.gender,
+                dob : userData.dob,
+                status : userData.status,
+                created_at : userData.created_at,
+                updated_at : userData.updated_at
+            };
 
-    		var data = {
-     			first_name : userData.first_name,
-    			last_name : userData.last_name,
-    			email : userData.email,
-    			mobile : userData.mobile,
-    			gender : userData.gender,
-    			dob : userData.dob,
-    			status : userData.status,
-    			created_at : userData.created_at,
-    			updated_at : userData.updated_at
-       		};
+
+            //registerUserDetails(gfucy, function(err,result))
+            userCrudModel.registerUserDetails(data, function(err, result) {
+              if (err) {
+                return next(err);
+              }
+              res.json(result);
+             
+            });
+
+    	/*req.getConnection(function (err, connection) {
+
+    		
 
     		var transaction = connection.beginTransaction(function(err) {
     			if (err) { throw err; }
@@ -92,7 +104,7 @@ var userInfo = {
                   });
     				console.log(query2.sql);
 
-//*********** role_id :1 ===== User_pr1 *************DEfault Permission for all new user***********************
+//*********** role_id :1 ===== User_pr1 *************Default Permission for all new user***********************
 
     				var data3 = {
     					
@@ -124,7 +136,7 @@ var userInfo = {
 
      res.json('Records inserted REspectively');
 
-   });
+   });*/
 
 },
 	saveUser : function(req, res, next){

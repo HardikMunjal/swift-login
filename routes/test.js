@@ -270,3 +270,57 @@ function getTopper(arrayMarks)
 {
 	arrayMarks.forEach()
 }
+
+
+
+var x = Date.now() / 1000 | 0 ;
+var y = Date.now();
+console.log(x);
+console.log(y);
+
+
+function getDateTime() {
+
+    var date = new Date();
+    console.log("new date" +date);
+
+    var hour = date.getHours();
+    console.log("adding hour" +hour);
+
+    hour = (hour < 10 ? "0" : "") + hour;
+    console.log("hour after condition" +hour);
+
+
+    var min  = date.getMinutes();
+    console.log("adding minutes" +min);
+
+    min = (min < 10 ? "0" : "") + min;
+    console.log("minutes after condition" +min);
+
+    var sec  = date.getSeconds();
+    console.log("adding seconds" +sec);
+
+    sec = (sec < 10 ? "0" : "") + sec;
+    console.log("seconds after condition" +sec);
+
+    var year = date.getFullYear();
+    console.log("adding year ,get full year" +year);
+
+    var month = date.getMonth() + 1;
+    console.log("adding month" +month);
+
+    month = (month < 10 ? "0" : "") + month;
+    console.log("adding month after condition" +month);
+
+    var day  = date.getDate();
+    console.log("adding day" +day);
+
+    day = (day < 10 ? "0" : "") + day;
+    console.log("adding day after condition" +day);
+
+    return year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
+
+}
+
+var xx =getDateTime();
+console.log(xx);

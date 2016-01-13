@@ -29,7 +29,6 @@ module.exports = {
         connection.query(q, function(err, result) {
           if(err) {
             connection.rollback(function() {
-              console.log('err');
             });
             return fn(err, null);
           } else {
@@ -37,9 +36,8 @@ module.exports = {
               connection.commit(function(err) {
                 if (err) { 
                   connection.rollback(function() {
-                    console.log('err');
                   });
-                  fn(err,null);
+                  return fn(err,null);
                 } else {
                   console.log('success! TRANSACTION COMPLETED SUCCESSFULLY');
                   return fn(err,'success');

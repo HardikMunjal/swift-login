@@ -1,5 +1,4 @@
 var mysql = require('mysql');
-var async = require('async');
 
 //*************Currently not in use*********************
 var connection = mysql.createConnection({
@@ -26,35 +25,31 @@ module.exports = {
   },
   trans: function(queries, fn) {
     connection.beginTransaction(function(err) {
-        async.each(queries, function(query,next) {
-          connection.query(query, function(err, result) {
-            if(err) {
-              next(err);
-            } else {
-              var log = 'Post ' + result.insertId + ' added';
-              console.log(log);
-              next(); 
-            }
-          });
-        },function(err) {
+      queries.forEach(function(q, queryIndex) {
+        connection.query(q, function(err, result) {
           if(err) {
             connection.rollback(function() {
-                throw err;
+              console.log('err');
             });
-            fn(err,null);
+            return fn(err, null);
+          } else {
+            if(!(queries[queryIndex + 1])) {
+              connection.commit(function(err) {
+                if (err) { 
+                  connection.rollback(function() {
+                    console.log('err');
+                  });
+                  fn(err,null);
+                } else {
+                  console.log('success! TRANSACTION COMPLETED SUCCESSFULLY');
+                  return fn(err,'success');
+                }
+              });
+            }
           }
         });
-        connection.commit(function(err) {
-          if (err) { 
-            connection.rollback(function() {
-              throw err;
-            });
-            fn(err,null);
-          } else {
-            console.log('success! TRANSACTION COMPLETED SUCCESSFULLY');
-            fn(err,'success');
-          }
       });
     });
   }
 }
+

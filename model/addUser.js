@@ -25,7 +25,7 @@ var addRegistrationDetail = {
 
   console.log(options);
   
-  var arr = { sql : 'INSERT INTO UserBasicInfo set first_name="haha1"' ,sql : 'INSERT INTO UserBasicInfo set first_name="haha2"' } ;
+  var arr = ['INSERT INTO UserBasicInfo set first_name="haha1"','INSERT INTO UserBasicInfo set first_name="haha2"'];
   mysql.trans(arr, function(err, result) {
     cb(err, result);
   });

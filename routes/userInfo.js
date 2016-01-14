@@ -55,7 +55,7 @@ var userInfo = {
 
 
             //registerUserDetails(gfucy, function(err,result))
-            userCrudModel.registerUserDetails(data, function(err, result) {
+            userCrudModel.registerUserDetails(userData, function(err, result) {
               if (err) {
                 return next(err);
               }

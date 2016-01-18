@@ -34,7 +34,7 @@ var addRegistrationDetail = {
   },
   {
     sql: 'INSERT INTO UserPermissionRole(user_id, role_id) values(?,?)',
-    values: ['user_id', 1]
+    values: ['user_id', 3]
   }
   ];
   var useResult = [true, false, false];

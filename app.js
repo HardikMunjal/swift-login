@@ -90,6 +90,11 @@ server.listen(5000, function () {
 
 app.use(require('./routes/corsheaders'));
 
+
+//*****************************CRON Execution Code*******************************************
+var cron = require('./crons/mailSender');
+cron();
+
 //add body parser thing before router to parse data in req body.
 app.use(bodyParser.json({
 	limit: '10mb'

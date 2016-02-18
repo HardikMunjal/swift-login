@@ -1,3 +1,21 @@
+//   angular
+
+
+
+
+
+
+// 1 rest api design structure
+// 2 framework to manage code
+// 3 SPA
+// 4 directives , custom directives
+// 5 MVC Design pattern
+// 6 Services
+// 7 Controllers
+// 8 Model
+
+
+
 	/*var triple = function(x){
 	     return x*3
 	      }
@@ -25,176 +43,18 @@
 
 	function f2 (a,b) {
 
-var x,y,chr;
-for(x=1; x<=6; x++)
-{
-   for (y=1; y<x; y++)
-     {
-    chr=chr+("*");        
-      }
- console.log(chr);
- chr='';    
-}
-var x,y,chr;
-for(x=1; x<=6; x++)
-{
-   for (y=1; y<x; y++)
-     {
-    chr=chr+("*");        
-      }
- console.log(chr);
- chr='';    
-}
-var x,y,chr;
-for(x=1; x<=6; x++)
-{
-   for (y=1; y<x; y++)
-     {
-    chr=chr+("*");        
-      }
- console.log(chr);
- chr='';    
-}
-var x,y,chr;
-for(x=1; x<=6; x++)
-{
-   for (y=1; y<x; y++)
-     {
-    chr=chr+("*");        
-      }
- console.log(chr);
- chr='';    
-}
-var x,y,chr;
-for(x=1; x<=6; x++)
-{
-   for (y=1; y<x; y++)
-     {
-    chr=chr+("*");        
-      }
- console.log(chr);
- chr='';    
-}
-var x,y,chr;
-for(x=1; x<=6; x++)
-{
-   for (y=1; y<x; y++)
-     {
-    chr=chr+("*");        
-      }
- console.log(chr);
- chr='';    
-}
-var x,y,chr;
-for(x=1; x<=6; x++)
-{
-   for (y=1; y<x; y++)
-     {
-    chr=chr+("*");        
-      }
- console.log(chr);
- chr='';    
-}
-var x,y,chr;
-for(x=1; x<=6; x++)
-{
-   for (y=1; y<x; y++)
-     {
-    chr=chr+("*");        
-      }
- console.log(chr);
- chr='';    
-}
-var x,y,chr;
-for(x=1; x<=6; x++)
-{
-   for (y=1; y<x; y++)
-     {
-    chr=chr+("*");        
-      }
- console.log(chr);
- chr='';    
-}
-var x,y,chr;
-for(x=1; x<=6; x++)
-{
-   for (y=1; y<x; y++)
-     {
-    chr=chr+("*");        
-      }
- console.log(chr);
- chr='';    
-}
-var x,y,chr;
-for(x=1; x<=6; x++)
-{
-   for (y=1; y<x; y++)
-     {
-    chr=chr+("*");        
-      }
- console.log(chr);
- chr='';    
-}
-var x,y,chr;
-for(x=1; x<=6; x++)
-{
-   for (y=1; y<x; y++)
-     {
-    chr=chr+("*");        
-      }
- console.log(chr);
- chr='';    
-}
-var x,y,chr;
-for(x=1; x<=6; x++)
-{
-   for (y=1; y<x; y++)
-     {
-    chr=chr+("*");        
-      }
- console.log(chr);
- chr='';    
-}
-var x,y,chr;
-for(x=1; x<=6; x++)
-{
-   for (y=1; y<x; y++)
-     {
-    chr=chr+("*");        
-      }
- console.log(chr);
- chr='';    
-}
-var x,y,chr;
-for(x=1; x<=6; x++)
-{
-   for (y=1; y<x; y++)
-     {
-    chr=chr+("*");        
-      }
- console.log(chr);
- chr='';    
-}
-var x,y,chr;
-for(x=1; x<=6; x++)
-{
-   for (y=1; y<x; y++)
-     {
-    chr=chr+("*");        
-      }
- console.log(chr);
- chr='';    
-}
-var x,y,chr;
-for(x=1; x<=6; x++)
-{
-   for (y=1; y<x; y++)
-     {
-    chr=chr+("*");        
-      }
- console.log(chr);
- chr='';    
-}
+
+
+    var x,y,chr;
+    for(x=1; x<=6; x++)
+    {
+       for (y=1; y<x; y++)
+         {
+        chr=chr+("*");        
+          }
+     console.log(chr);
+     chr='';    
+    }
 
 
 		var temp = a+b;
@@ -231,6 +91,7 @@ function x(print){
 }
 
 subtract(5,1,print);
+
 
 
 
@@ -324,3 +185,46 @@ function getDateTime() {
 
 var xx =getDateTime();
 console.log(xx);
+
+
+
+var a ='';
+        var b ="";
+        var c = {};
+        var d = [];
+        var e = 0;
+        var f = false;
+        var g= NaN;
+        var h = null;
+        var i = undefined;
+
+        console.log(!a);
+        console.log(!b);
+        console.log(!c);
+        console.log(!d);
+        console.log(!e);
+        console.log(!f);
+        console.log(!g);
+        console.log(!h);
+        console.log(!i);
+    
+
+        console.log("a value is '' " +a);
+        console.log('a type is' +typeof(a));
+        console.log(a.valueOf());
+        console.log('b value is "" ' +b);
+        console.log('b type is' +typeof(b));
+        console.log("c value is {} " +c);
+        console.log('c type is' +typeof(c));
+        console.log("d value is [] " +d);
+        console.log('d type is' +typeof(d));
+        console.log("e value is 0 " +e);
+        console.log('e type is' +typeof(e));
+            console.log("f value is false " +f);
+        console.log('f type is' +typeof(f));
+            console.log("g value is NaN " +g);
+        console.log('g type is' +typeof(g));
+            console.log("h value is null " +h);
+        console.log('h type is' +typeof(h));
+            console.log("i value is undefined " +i);
+        console.log('i type is' +typeof(i));

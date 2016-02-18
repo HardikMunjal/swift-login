@@ -7,10 +7,8 @@ var addRegistrationDetail = {
      var query = {
             sql: 'SELECT * FROM UserBasicInfo'
             }
-     console.log('OKK H bhai');
      mysql.simpletrans(query, function(e, r) {
         if (e) {
-            console.log('error is here');
             console.log(e);
         } else {
             console.log(r[0])
@@ -23,7 +21,6 @@ var addRegistrationDetail = {
  registerUserDetails: function(options, cb)
  {
 
-  console.log(options);
   var arr = [ {
     sql: 'INSERT INTO UserBasicInfo(first_name, last_name, email, mobile, gender, dob, status, created_at, updated_at) values(?,?,?,?,?,?,?,?,?)',
     values: [options.first_name, options.last_name, options.email, options.mobile, options.gender, options.dob, options.status, options.created_at, options.updated_at]

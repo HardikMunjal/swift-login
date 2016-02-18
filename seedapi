@@ -1,0 +1,28 @@
+
+
+   v1/register          add new record 
+
+   v1/login          validate and create session and send details in response so that clint can also save  details in local storage
+
+
+   v1/myPersonalified      
+
+
+
+
+
+    zoo-zoo will come  , and say 
+
+    zoo-zoo  = hey hardi how are you??
+
+   {  hardi = i am [fine,ok,good] zoo-zoo.
+    hardi = i am feeling very [sad,bad,alone] zoo-zoo
+    hardi = i am very [happy,enjoying]  }
+
+
+    [ "zoo-zoo" : "hey hardi how are you??" ]
+
+
+
+      "zoo" : [ {"first_time" : "hello hardik..Your new friend zoo welcomes you to his zoo world??"} ,{"second_time" : "hey hardi how are you??"},{"very_sooner" : "hey hardi you come again ?? are you missi"} ] 
+

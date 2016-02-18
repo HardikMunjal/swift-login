@@ -2,6 +2,30 @@
 
 var userCrudModel = require('../model/addUser');
 
+function getDateTime(date) {
+
+    var date =date;
+
+    var hour = date.getHours();
+    hour = (hour < 10 ? "0" : "") + hour;
+
+    var min  = date.getMinutes();
+    min = (min < 10 ? "0" : "") + min;
+ 
+    var sec  = date.getSeconds();
+    sec = (sec < 10 ? "0" : "") + sec;
+ 
+    var year = date.getFullYear();
+    
+    var month = date.getMonth() + 1;
+    month = (month < 10 ? "0" : "") + month;
+  
+    var day  = date.getDate();
+    day = (day < 10 ? "0" : "") + day;
+   
+    return year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec;
+};
+
 var userInfo = {
 
 	getRegistrationDetail : function(req, res, next){
@@ -33,13 +57,26 @@ var userInfo = {
     validate : function(req, res, next){
 
 
-    	var userData = JSON.parse(JSON.stringify(req.body));
+    	var userData = req.body;
+ 
+        if (!userData || Object.keys(userData).length === 0){
+            var err = new Error('no registeration information sent');
+            err.status=400;
+            return next(err);
+        }
+
+
+        if (!userData.first_name || !userData.last_name || !userData.email || !userData.mobile || !userData.gender || !userData.dob){
+            var err = new Error('some parameters are missing');
+            err.status=400;
+            return next(err);
+        }
+
+        var currentDateTime = new Date();
 
     	userData.status = '1';
-    	//userData.email = 'hardik.munjaal@gmail.com';
-    	//userData.mobile = '9717060569';
-    	userData.created_at = '7656576';
-    	userData["updated_at"] = '8797898';
+    	userData.created_at = getDateTime(currentDateTime);;
+    	userData["updated_at"] = getDateTime(currentDateTime);;
 
         var data = {
                 first_name : userData.first_name,
@@ -54,7 +91,7 @@ var userInfo = {
             };
 
 
-            //registerUserDetails(gfucy, function(err,result))
+           
             userCrudModel.registerUserDetails(userData, function(err, result) {
               if (err) {
                 return next(err);
@@ -62,81 +99,6 @@ var userInfo = {
               res.json(result);
              
             });
-
-    	/*req.getConnection(function (err, connection) {
-
-    		
-
-    		var transaction = connection.beginTransaction(function(err) {
-    			if (err) { throw err; }
-    			var query=connection.query("INSERT INTO UserBasicInfo set ? ",data, function(err, result) {
-    				if (err) { 
-    					connection.rollback(function() {
-    						throw err;
-    					});
-    				}
-    				console.log(query.sql);
-
-    				var log = 'Post ' + result.insertId + ' added';
-    				console.log(log);
-
-    				var user_id = result.insertId;
-
-    				var data2 = {
-    					email : userData.email,
-    					password : userData.password,
-    					mobile : userData.mobile,
-    					user_id : user_id,
-    					last_updated_by : 'user',
-    					created_at : userData.created_at,
-    					updated_at : userData.updated_at
-
-    				};
-    				console.log(data2);
-
-    				var query2=connection.query('INSERT INTO UserCredential SET ?', data2, function(err, result) {
-    	
-				    	if (err) { 
-				      	connection.rollback(function() {
-				      		throw err;
-				      	});
-				      }  
-                  });
-    				console.log(query2.sql);
-
-//*********** role_id :1 ===== User_pr1 *************Default Permission for all new user***********************
-
-    				var data3 = {
-    					
-    					user_id : user_id,
-    					role_id : '1'
-
-    				};
-
-    				var query3=connection.query('INSERT INTO UserPermissionRole SET ?', data3, function(err, result) {
-    	
-				    	if (err) { 
-				      	//console.log(err);
-				      	connection.rollback(function() {
-				      		throw err;
-				      	});
-				      }  
-				      connection.commit(function(err) {
-				      	if (err) { 
-				      		connection.rollback(function() {
-				      			throw err;
-				      		});
-				      	}
-			          console.log('success! TRANSACTION COMPLETED SUCCESSFULLY');
-			          });
-                  });
-
-    			});
-             });
-
-     res.json('Records inserted REspectively');
-
-   });*/
 
 },
 	saveUser : function(req, res, next){

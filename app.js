@@ -92,8 +92,8 @@ app.use(require('./routes/corsheaders'));
 
 
 //*****************************CRON Execution Code*******************************************
-var cron = require('./crons/mailSender');
-cron();
+//var cron = require('./crons/mailSender');
+//cron();
 
 //add body parser thing before router to parse data in req body.
 app.use(bodyParser.json({
@@ -111,8 +111,3 @@ app.set('view engine', 'html');
 //asynchronus code ,default nature of node
 // cors = require('./routes/corsheaders');
 // app.use(cors());
-
-
-
-
-

@@ -18,6 +18,65 @@ var addRegistrationDetail = {
 
  },
 
+ validateLoginUserViaEmail: function(options, cb) {
+ 
+     var query = {
+            sql: 'SELECT user_id FROM UserCredential where email=? and password =?',
+            values:[options.email,options.password]
+            }
+            console.log(query.sql);
+     mysql.simpletrans(query, function(e, r) {
+        if (e) {
+            console.log(e);
+            cb(e);
+        } else {
+            console.log(r[0])
+            cb(null,r);
+        }
+    });
+
+ },
+
+
+
+ validateLoginUserViaMobile: function(options, cb) {
+ 
+     var query = {
+            sql: 'SELECT user_id FROM UserCredential where mobile=? and password =?',
+            values:[options.mobile,options.password]
+            }
+            console.log(query.sql);
+     mysql.simpletrans(query, function(e, r) {
+        if (e) {
+            console.log(e);
+            cb(e);
+        } else {
+            console.log(r[0])
+            cb(null,r);
+        }
+    });
+
+ },
+
+fetchDetailsViaUserid: function(options, cb) {
+ 
+     var query = {
+            sql: 'SELECT * FROM UserBasicInfo where user_id =?',
+            values:[options.user_id]
+            }
+            console.log(query.sql);
+     mysql.simpletrans(query, function(e, r) {
+        if (e) {
+            console.log(e);
+            cb(e);
+        } else {
+            console.log(r[0])
+            cb(null,r);
+        }
+    });
+
+ },
+
  registerUserDetails: function(options, cb)
  {
 

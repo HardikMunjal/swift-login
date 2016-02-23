@@ -4,7 +4,7 @@ var userCrudModel = require('../model/addUser');
 
 function getDateTime(date) {
 
-    var date =date;
+    var date = date;
 
     var hour = date.getHours();
     hour = (hour < 10 ? "0" : "") + hour;
@@ -27,6 +27,44 @@ function getDateTime(date) {
 };
 
 var userInfo = {
+
+
+    validateLoginDetails : function(req, res, next){
+
+
+        var loginData = req.body;
+ 
+        if (!loginData || Object.keys(loginData).length === 0){
+            var err = new Error('no login information sent');
+            err.status=400;
+            return next(err);
+        }
+
+
+        if ( (!loginData.email && !loginData.mobile) || !loginData.password){
+            var err = new Error('login Details are missing');
+            err.status=400;
+            return next(err);
+        }
+
+        if(!loginData.mobile){
+            var data = {
+                    email : loginData.email,
+                    password : loginData.password
+                };
+            }
+            debugger;
+           
+            userCrudModel.validateLoginUserViaEmail(data, function(err, result) {
+
+              if (err) {
+                return next(err);
+              }
+              res.json(result);
+             
+            });
+
+},
 
 	getRegistrationDetail : function(req, res, next){
 

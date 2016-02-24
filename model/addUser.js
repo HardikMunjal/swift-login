@@ -25,6 +25,7 @@ var addRegistrationDetail = {
             values:[options.email,options.password]
             }
             console.log(query.sql);
+            console.log(query.values);
      mysql.simpletrans(query, function(e, r) {
         if (e) {
             console.log(e);
@@ -46,6 +47,7 @@ var addRegistrationDetail = {
             values:[options.mobile,options.password]
             }
             console.log(query.sql);
+            console.log(query.values);
      mysql.simpletrans(query, function(e, r) {
         if (e) {
             console.log(e);
@@ -65,6 +67,7 @@ fetchDetailsViaUserid: function(options, cb) {
             values:[options.user_id]
             }
             console.log(query.sql);
+            console.log(query.values);
      mysql.simpletrans(query, function(e, r) {
         if (e) {
             console.log(e);

@@ -1,3 +1,5 @@
+var error = require('./error');
+
 var team = require('./team');
 var userInfo = require('./userInfo');
 
@@ -13,7 +15,7 @@ module.exports = function (app) {
  app.post('/create/user', team.createUser);
 
  //Live APIS
- app.post('/v1/login', userInfo.validateLoginDetails);
+ app.post('/v1/login', userInfo.validateLoginDetails, userInfo.getDetailsViaUserid,error);
  app.get('/get/user', userInfo.getRegistrationDetail, userInfo.saveUser);
  app.post('/register/user', userInfo.validate, userInfo.saveUser);
 

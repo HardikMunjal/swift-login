@@ -16,6 +16,8 @@ module.exports = function (app) {
 
  //Live APIS
  app.post('/v1/login', userInfo.validateLoginDetails, userInfo.getDetailsViaUserid,error);
+ app.get('/v1/validate/email',userInfo.validateExistenceOfEmail,error);
+ app.get('/v1/validate/mobile',userInfo.validateExistenceOfMobile,error);
  app.get('/get/user', userInfo.getRegistrationDetail, userInfo.saveUser);
  app.post('/register/user', userInfo.validate, userInfo.saveUser);
 

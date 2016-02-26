@@ -1,5 +1,4 @@
 
-
 var players = ['sachin','ponting','devillers','kohli','gilchrist','dhoni','kallis','bond','akhtar','lee'];
 var batsman = ['sachin','ponting','devillers','kohli'];
 var bowler = ['kallis','bond','akthar','lee'];

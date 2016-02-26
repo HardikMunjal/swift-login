@@ -18,6 +18,48 @@ var addRegistrationDetail = {
 
  },
 
+ validateExistenceOfEmail: function(options, cb) {
+ 
+     var query = {
+            sql: 'SELECT COUNT(*) as total FROM UserCredential WHERE email = ?',
+            values:[options.email]
+            }
+            console.log(query.sql);
+            console.log(query.values);
+     mysql.simpletrans(query, function(e, r) {
+        if (e) {
+            console.log(e);
+            cb(e);
+        } else {
+            console.log(r[0])
+            cb(null,r);
+        }
+    });
+
+ },
+
+ validateExistenceOfMobile: function(options, cb) {
+ 
+     var query = {
+            sql: 'SELECT COUNT(*) as total FROM UserCredential WHERE mobile = ?',
+            values:[options.mobile]
+            }
+            console.log(query.sql);
+            console.log(query.values);
+     mysql.simpletrans(query, function(e, r) {
+        if (e) {
+            console.log(e);
+            cb(e);
+        } else {
+            console.log(r[0])
+            cb(null,r);
+        }
+    });
+
+ },
+
+
+
  validateLoginUserViaEmail: function(options, cb) {
  
      var query = {

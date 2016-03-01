@@ -3,7 +3,7 @@ var error = require('./error');
 var team = require('./team');
 var userInfo = require('./userInfo');
 
-module.exports = function (app) {
+module.exports = function (app, passport) {
 
 
 
@@ -14,7 +14,7 @@ module.exports = function (app) {
  app.post('/create/user', team.createUser);
 
  //Live APIS
- app.post('/v1/login', userInfo.validateLoginDetails, userInfo.getDetailsViaUserid,error);
+ app.post('/v1/login', userInfo.validateLoginDetails, userInfo.getDetailsViaUserid, passport.authenticate('local'), userInfo.userDetailsResponse, error);
 
 
  app.get('/v1/validate/email',userInfo.validateExistenceOfEmail,error);
@@ -22,7 +22,7 @@ module.exports = function (app) {
  app.post('/register/user', userInfo.validate, userInfo.saveUser);
 
 
- app.get('/get/user', userInfo.getRegistrationDetail, userInfo.saveUser);
+ app.get('/get/user', isLoggedIn, userInfo.getRegistrationDetail, userInfo.saveUser);
  //app.get('/v1/user/:user_id',);          //if admin then check for query parameter , in case of admin send list of all user
  //app.post('/v1/user/:user_id',);         //if admin then check for query parameter
  //app.put('/v1/user',);                   //if admin then check for query parameter
@@ -51,3 +51,17 @@ module.exports = function (app) {
 			    res.render('chat.html');
 			  });
 };
+
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+
+    console.log(req.isAuthenticated());
+
+    console.log(req.user);
+    // if user is authenticated in the session, carry on 
+    if (req.isAuthenticated())
+        return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}

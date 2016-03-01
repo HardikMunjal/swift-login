@@ -40,6 +40,9 @@ var userInfo = {
       err.status=400;
       return next(err);
     }
+
+    console.log(req);
+    console.log(req.headers.origin);
     
     var email = req.query.email;
     var data ={
@@ -84,6 +87,8 @@ var userInfo = {
 
     var loginData = req.body;
 
+    console.log(req.user);
+
     if (!loginData || Object.keys(loginData).length === 0){
       var err = new Error('no login information sent');
       err.status=400;
@@ -114,7 +119,7 @@ var userInfo = {
     var user_id = sqlResponse.user_id;
 
     req.body.user_id = user_id;
-    delete req.body.password;
+    //delete req.body.password;
 
     return next();
   }
@@ -158,9 +163,19 @@ getDetailsViaUserid : function(req, res, next){
     if (err) {
       return next(err);
     }
-    res.json(result);
+    req.body.user_data = result;
+    delete req.body.user_id;
+    //res.json(result);
+    next();
 
   });
+},
+
+userDetailsResponse : function (req, res, next){
+  if (!req.body.user_data){
+
+  }
+  res.json(req.body.user_data);
 },
 
 

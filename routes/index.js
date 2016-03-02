@@ -14,7 +14,7 @@ module.exports = function (app, passport) {
  app.post('/create/user', team.createUser);
 
  //Live APIS
- app.post('/v1/login', userInfo.validateLoginDetails, userInfo.getDetailsViaUserid, passport.authenticate('local'), userInfo.userDetailsResponse, error);
+ app.post('/v1/login', userInfo.validateLoginDetails, userInfo.getDetailsViaUserid, userInfo.userDetailsResponse, error);
 
 
  app.get('/v1/validate/email',userInfo.validateExistenceOfEmail,error);
@@ -22,7 +22,7 @@ module.exports = function (app, passport) {
  app.post('/register/user', userInfo.validate, userInfo.saveUser);
 
 
- app.get('/get/user', isLoggedIn, userInfo.getRegistrationDetail, userInfo.saveUser);
+ app.get('/get/user', userInfo.getRegistrationDetail, userInfo.saveUser);
  //app.get('/v1/user/:user_id',);          //if admin then check for query parameter , in case of admin send list of all user
  //app.post('/v1/user/:user_id',);         //if admin then check for query parameter
  //app.put('/v1/user',);                   //if admin then check for query parameter

@@ -41,8 +41,7 @@ var userInfo = {
       return next(err);
     }
 
-    console.log(req);
-    console.log(req.headers.origin);
+    console.log(req.session.test);
     
     var email = req.query.email;
     var data ={
@@ -53,6 +52,9 @@ var userInfo = {
     if (err) {
       return next(err);
     }
+    req.session.test=result;
+    console.log('test is created in session');
+    console.log(req.sessionID,'session value at exit email',req.session);
     res.json(result);
 
   });
@@ -76,6 +78,7 @@ var userInfo = {
     if (err) {
       return next(err);
     }
+    console.log(req.sessionID,'session value at exit mobile',req.session);
     res.json(result);
 
   });
@@ -87,7 +90,12 @@ var userInfo = {
 
     var loginData = req.body;
 
-    console.log(req.user);
+    console.log(req.sessionID,'session value at login',req.session);
+
+    console.log('new session created');
+
+    req.session.work='bomb';
+
 
     if (!loginData || Object.keys(loginData).length === 0){
       var err = new Error('no login information sent');
@@ -117,6 +125,7 @@ var userInfo = {
       return next(err);
     }
     var user_id = sqlResponse.user_id;
+    
 
     req.body.user_id = user_id;
     //delete req.body.password;
@@ -164,6 +173,7 @@ getDetailsViaUserid : function(req, res, next){
       return next(err);
     }
     req.body.user_data = result;
+    console.log(req.session.test);
     delete req.body.user_id;
     //res.json(result);
     next();
@@ -187,6 +197,7 @@ getRegistrationDetail : function(req, res, next){
   if (err) {
     return next(err);
   }
+  console.log(req.sessionID,'session value at details',req.session);
   res.json(result);
 
 });
@@ -209,6 +220,10 @@ validate : function(req, res, next){
 
 
  var userData = req.body;
+
+ console.log(req.sessionID,'session value at register',req.session);
+ console.log('new session created');
+ req.session.harry='haha';
 
  if (!userData || Object.keys(userData).length === 0){
   var err = new Error('no registeration information sent');

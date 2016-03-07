@@ -29,6 +29,67 @@ fs.open('../../../seedap', 'r', function(err, fd) {
 // backend me bhi admin ki api ka validation hoga 
 
 
+// movie table
+
+//movie id
+//movie name
+//photo
+//movie type
+//movie description
+
+
+//actor_table
+
+//actor_id
+//name
+//gender
+//age
+
+
+//movie_actor_table
+//movie_id
+//actor_id
+
+
+
+//movie_id
+//rating
+//user_id
+
+
+
+//group_id
+//group_name
+//group_admin
+
+
+//group_id
+//user_id
+
+
+
+//users in groups who have particular movie
+//group_id
+//movie_id
+//user_id
+
+
+
+//movie_taker_description
+
+//user_id
+//movie_id
+//movie_quality
+//movie_size
+//subtitles boolean
+//subtitles lang
+
+
+//movie messenger
+//movie_id
+//user_id
+//group_id
+//message
 
 
 ****************

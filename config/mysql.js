@@ -74,6 +74,111 @@ module.exports = {
       }
       step(0);
     });
+  },
+  transCallbackWay : function(queries){
+     
+     connection.beginTransaction(function(err){
+       if (err) { throw err; }
+
+       connection.query(queries[0],function(err, result){
+         if (err) { 
+           connection.rollback(function() {
+             throw err;
+           });
+         }
+         var log = result.insertId;
+         
+         var position = queries[1].values.indexOf(queries[1].replacer);
+         console.log(position);
+         console.log(log);
+         queries[1].values.splice(position, 1, log);
+         console.log(queries[1].values);
+
+
+         connection.query(queries[1].sql, queries[1].values, function(err, result) {
+            if (err) { 
+              connection.rollback(function() {
+                throw err;
+              });
+            }  
+         var position2 = queries[2].values.indexOf(queries[2].replacer);
+         console.log(position2);
+         console.log(log);
+         queries[2].values.splice(position2, 1, log);
+
+          connection.query(queries[2].sql, queries[2].values, function(err, result) {
+            if (err) { 
+              connection.rollback(function() {
+                throw err;
+              });
+            }  
+
+
+            connection.commit(function(err) {
+              console.log('coming here bro');
+              if (err) { 
+                connection.rollback(function() {
+                  throw err;
+                });
+              }
+              console.log('Transaction Complete.');
+              connection.end();
+            });
+          });
+        });
+      });
+    });
+  },
+
+  transDynamicCallbackWay: function(queries, fn){
+
+ 
+    var inc = 0;
+
+//--------------------------------Start Of Transaction Scrript ----------------------------------------
+
+    connection.beginTransaction(function(err){
+         if (err) { throw err; }
+         connection.query(queries[0],recursiveCallback)
+      });
+//--------------------------------End Of Transaction Scrript ------------------------------------------
+
+    
+
+    var recursiveCallback = function(err, result) {
+      if (err) {
+        return connection.rollback(function() {
+          throw err;
+        });
+        return fn(err,null);
+      }  
+
+      if(inc==0){
+        global.log = result.insertId;
+      }
+
+      if(inc<queries.length-1) {
+
+        inc=inc+1;
+        var position = queries[inc].values.indexOf(queries[inc].replacer);
+        queries[inc].values.splice(position, 1, global.log);
+        //----------------------------- recursive calling of connection.query ---------------------------
+        connection.query(queries[inc].sql, queries[inc].values, recursiveCallback);
+      } else {
+
+         connection.commit(function(err) {
+            if (err) {
+               return connection.rollback(function() {
+                  throw err;
+                });
+               return fn(err,null);
+              }
+            console.log('Transaction Complete.');
+            return fn(err,'success');
+            connection.end();
+          });
+        }   
+      }
+    }
   }
-}
 

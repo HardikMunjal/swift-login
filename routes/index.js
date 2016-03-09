@@ -40,17 +40,14 @@ module.exports = function (app, passport) {
 
 
   //app.get('/v1/group/:group_id');  //return the group details and their user details 
-
-
- 
-
   
 
  //after creation i have to move this to frontend application
  app.get('/open/chat', function(req, res, next) {
 			    res.render('chat.html');
 			  });
-};
+
+ //app.post('/chat/xxx', robotMaker);
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
@@ -64,4 +61,5 @@ function isLoggedIn(req, res, next) {
 
     // if they aren't redirect them to the home page
     res.redirect('/');
+ }
 }

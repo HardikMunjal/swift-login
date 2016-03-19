@@ -21,7 +21,7 @@ merchantInventory. getMerchantInventorySummary(options, function(err, result) {
 
 module.exports = function () {
 
-  new CronJob('* * * * *', function() {
+  new CronJob('*/1 * * * *', function() {
 
     console.log('You will see this message ,when resource would be available to process your request');
     console.log('sending mail');  
@@ -32,7 +32,7 @@ module.exports = function () {
      service: "Gmail",  // sets automatically host, port and connection security settings
      auth: {
        user: "hardik.munjal@polestarllp.com",
-       pass: "timeforchangex"
+       pass: "timeforchange1x"
      }
    });
 

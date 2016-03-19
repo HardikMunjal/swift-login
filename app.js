@@ -97,8 +97,8 @@ app.use(require('./routes/corsheaders'));
 
 
 //*****************************CRON Execution Code*******************************************
-//var cron = require('./crons/mailSender');
-//cron();
+var cron = require('./crons/fantasyCricketNotifier/teamMailer.js');
+cron();
 
 //require('./config/passport')(passport);
 

@@ -223,3 +223,96 @@ console.log(obj.say());
 
 var girlObject = {}
 
+
+
+
+
+Math.ceil(1.6);  upward to passed value
+Math.floor(1.6); downward to passed value
+
+Math.floor((Math.random() * 10) + 1);
+
+
+
+
+
+
+{ 
+	console.log('start of semi colon 1');
+	console.log(1);
+	{ 
+		console.log('start of semi colon 2');
+		console.log(2);
+		{
+			console.log('start of semi colon 3');
+			console.log(3);
+			{
+				console.log('start of semi colon 4');
+				console.log(4);
+			}
+			console.log('end of semi colon 4');
+		}
+		console.log('end of semi colon 3');
+	}
+	console.log('end of semi colon 2');
+}
+console.log('end of semi colon 1');
+
+
+
+for(i=0;i<3;i++){
+	console.log('{');
+    console.log('bc');
+
+    for(j=0;j<i;j++){
+    	console.log('{');
+        console.log('bc');
+    }
+    console.log('}');
+}
+
+
+
+
+	function(){
+        console.log('bc');
+        function(){
+        console.log('bc');
+        function(){
+        console.log('bc');
+        function(){
+        console.log('bc');
+	}
+	}
+	}
+	}
+	for (var i = 0; i < Things.length; i++) {
+		Things[i]
+	};
+
+
+
+	function s(in){
+		if(in==50)
+			return
+		else{
+			s(in++)
+		}
+	}
+
+	
+
+
+	function abc(){
+
+		if(x<4){
+			abc();
+		}
+		x++
+
+	}
+
+
+
+
+	

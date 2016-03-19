@@ -95,3 +95,30 @@ process.nextTick(function() {
 });
 
 console.log('i am done');
+
+
+
+
+
+function calculator(){
+
+	var number = 5;
+	var second_number = 20;
+
+	addition(number,second_number,function(err,result){
+		if (err){
+			return console.log('bhai nahi ho paaega');
+		}
+		console.log(result);
+	})
+}
+
+function addition(number,second_number,cb){
+	if(number==5){
+		return cb('err');
+	}
+	var x= number+second_number;
+	return cb(null,x);
+}
+
+calculator();

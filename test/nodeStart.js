@@ -52,7 +52,49 @@
 
 
 
+//Good bad and the ugly
 
+
+Node runs in single thread, this means that if we deploy application in a 8-core server, then we are wasting our money
+because most of the CPU resource will not be used
+
+IN node we can not run two parallel operation because it will not be able to run two actions at the same time
+
+
+Node js shines is in building fast, scalable network applications as it is capable of handling a huge number of 
+simuntaneously connection with high throughput
+
+IMp: Compared to traditionallweb serving techniques where each request spawns a new thread,taking up system RAM
+and eventually maxing out at the amount of RAM available
+
+// Your approach to pick general patterns is wise. Sorting, searching, and even algorithms in general are CPU-bound. Of course, you can't eliminate CPU usage, but if you can make your database sort instead of your app code, you may be better off.
+
+// I would also keep an eye out for large loops. A loop that doesn't fire any asynchronous events is a bottleneck. Of course, one cannot entirely avoid loops. They are a fact of life for programming. If your loops are short, then no problem. If you find a loop that runs 10,000 times, you may want to consider breaking it up using setTimeout, process.nextTick, or a separate node process.
+
+// 10,000 was picked arbitrarily. It depends on what the loop does. Your milage may vary.
+
+
+A quick calculation: assuming that each thread potentially has an accompanying 2 MB of memory with it, running on a system with 8 GB of RAM puts us at a theoretical maximum of 4000 concurrent connections, plus the cost of context-switching between threads. That’s the scenario you typically deal with in traditional web-serving techniques. By avoiding all that, Node.js achieves scalability levels of over 1M concurrent connections (as a proof-of-concept).
+
+There is, of course, the question of sharing a single thread between all clients requests, and it is a potential pitfall of writing Node.js applications. Firstly, heavy computation could choke up Node’s single thread and cause problems for all clients (more on this later) as incoming requests would be blocked until said computation was completed. Secondly, developers need to be really careful not to allow an exception bubbling up to the core (topmost) Node.js event loop, which will cause the Node.js instance to terminate (effectively crashing the program).
+
+However, a piece of CPU-bound code in a Node.js instance with thousands of clients connected is all it takes to block the event loop, making all the clients wait. CPU-bound codes include attempting to sort a large array, running an extremely long loop, and so on. For example:
+
+If this array of users was being retrieved from the database, the ideal solution would be to fetch it already sorted directly from the database. If the event loop was being blocked by a loop written to compute the sum of a long history of financial transaction data, it could be deferred to some external worker/queue setup to avoid hogging the event loop.
+
+
+
+
+
+
+
+
+setTimeout(fn, delay) calls the given callback fn after the given delay has ellapsed (in milliseconds). However, the callback is not executed immediately at this time, but added to the function queue so that it is executed as soon as possible, after all the currently executing and currently queued event handlers have completed. Setting the delay to 0 adds the callback to the queue immediately so that it is executed as soon as all currently-queued functions are finished.
+
+setImmediate(fn) achieves the same effect, except that it doesn’t use the queue of functions. Instead, it checks the queue of I/O event handlers. If all I/O events in the current snapshot are processed, it executes the callback. It queues them immediately after the last I/O handler somewhat like process.nextTick. This is faster than setTimeout(fn, 0).
+
+
+question 2: what is callback
 
 var abc ={a:'5',b:'6'};
 

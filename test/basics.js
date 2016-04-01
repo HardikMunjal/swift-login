@@ -13,6 +13,7 @@ var res= post++; //value is first assigned then returned
 post += 3; // post = post + 3  
 
 
+
 // **********************************DataTYpes in javascript
 //number string //boolean  
 //undefined :- when you try to access a variable that doesn't exist, you get thespecial value undefined . The same will happen when you have declared a

@@ -57,10 +57,10 @@ var team1Sum=0;
  function team1SumF(team1){
     debugger;
     for (var elem in team1){
-        if(team1.hasOwnProperty(elem)){
-       team1Sum += team1[elem].str;
+      if(team1.hasOwnProperty(elem)){
+        team1Sum += team1[elem].str;
         console.log("dekh le sum" +team1Sum);
-    }
+      }
     }
  }
   team1SumF();

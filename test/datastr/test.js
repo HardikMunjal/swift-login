@@ -12,29 +12,36 @@ console.log(Array.max(array));
 
 Atul:
 
-kohli   184
-devillers   110
-smith   83
-root    168
-decock  153
-rohit   45
-warner  38
-williamson  91
-amla  120
-duplesis  98
+34
+143
+
+kohli   184        1840
+devillers   110     990   bahr
+smith   83          664   bahr
+root    168         1176
+decock  153         918   bahr
+rohit   45          225
+warner  38          152   bahr
+williamson  91      273
+amla  120           240   bahr
+duplesis  98         98   bahr
+
+6576
 
 2 changes
 
 
 hardik
 
-Devillers  110
-Kohli  184
-Guptil 125
-Watson 96
-Root 168
-williamson 91
-Roy 105
-DhaWan 43
-Rohit 45
-Warner 38
+Devillers  110    1100   bahr
+Kohli  184        1656
+Guptil 125        1000
+Watson 96          672   bahr
+Root 168          1008
+williamson 91     455
+Roy 105           420
+DhaWan 43         129
+Rohit 45           90
+Warner 38           38   bahr
+
+6568

@@ -71,6 +71,21 @@ var numberGenerator = function(callback){
 numberGenerator(hardiLyf);
 
 
+
+
+//test
+
+// var numberGenerator = function(){
+
+// 	hardiLyf(6,function(err,result){
+//        if(err){
+
+//        }
+//        console.log(result)
+// 	})
+// }
+
+
 //********4
 var hardiLyf = function(err,number){
 	if (err){ 

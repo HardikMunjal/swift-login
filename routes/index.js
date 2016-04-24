@@ -23,6 +23,47 @@ module.exports = function (app, passport) {
 
 
  app.get('/get/user', userInfo.getRegistrationDetail, userInfo.saveUser);
+
+// test();
+// function test(){
+//   for (i=0; i<500; i++){
+//     checkNextTick(i);
+//   }
+// }
+// function checkNextTick(index) {
+//   process.nextTick(function(){
+//     var startDate = new Date();
+//     for (var i=0;i<1024 *1024;i++){
+//       Math.sqrt(i)
+//     }
+//     console.log((index + 1) + ":Interval:" +(new Date() -startDate));
+//   })
+// }
+console.log('fuck yoou ,,');
+
+app.get('/xx',function(req,res){
+  test();
+function test(){
+  for (i=0; i<500; i++){
+    checkNextTick(i);
+  }
+}
+function checkNextTick(index) {
+  process.nextTick(function(){
+    var startDate = new Date();
+    for (var i=0;i<1024 *1024;i++){
+      Math.sqrt(i)
+    }
+    console.log((index + 1) + ":Interval:" +(new Date() -startDate));
+  })
+}
+})
+//Good morning. May I have your name please?
+app.get('/print',function(req,res){
+  res.json({
+    message:"I am In!"
+  })
+})
  //app.get('/v1/user/:user_id',);          //if admin then check for query parameter , in case of admin send list of all user
  //app.post('/v1/user/:user_id',);         //if admin then check for query parameter
  //app.put('/v1/user',);                   //if admin then check for query parameter

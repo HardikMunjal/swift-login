@@ -96,6 +96,88 @@ setImmediate(fn) achieves the same effect, except that it doesn’t use the queu
 
 question 2: what is callback
 
+
+
+RabbitMQ
+
+*// Very IMportant
+
+http://typedarray.org/concurrency-in-javascript/
+
+Javascript use web workers to maintain concurrency or to run heavy computing task in seperate thread.
+similarly node js use child process to execute their callbacks
+
+
+
+
+Why Threads
+Threads (kernel threads) are very interesting creatures. They provide:
+
+1.- Parallelism: All the threads run in parallel. On a single core processor, the CPU is switched rapidly back and forth among the threads providing the illusion that the threads are running in parallel, albeit on a slower CPU than the real one. With 10 compute-bound threads in a process, the threads would appear to be running in parallel, each one on a CPU with 1/10th the speed of the real CPU. On a multi-core processor, threads are truly running in parallel, and get time-sliced when the number of threads exceed the number of cores. So with 12 compute bound threads on a quad-core processor each thread will appear to run at 1/3rd of the nominal core speed.
+
+2.- Fairness: No thread is more important than another, cores and CPU slices are fairly distributed among threads by the OS scheduler.
+
+3.- Threads fully exploit all the available CPU resources in your system. On a loaded system running many tasks in many threads, the more cores there are, the faster the threads will complete. Automatically.
+
+4.- The threads of a process share exactly the same address space, that of the process they belong to. Every thread can access every memory address within the process' address space. This is a very appropriate setup when the threads are actually part of the same job and are actively and closely cooperating with each other. Passing a reference to a chunk of data via a pointer is many orders of magnitude faster than transferring a copy of the data via IPC.
+
+Why not multiple processes.
+The "can't block the event loop" problem is inherent to Node's evented model. No matter how many Node processes you have running as a Node-cluster, it won't solve its issues with CPU-bound tasks.
+
+Launch a cluster of N Nodes running the example B (quickIntro_blocking.js) above, and all you'll get is N -instead of one- Nodes with their event loops blocked and showing a sluggish performance.
+
+
+
+
+
+
+You can create threads to handle CPU intensive tasks using node module called node-threads-a-gogo which makes thread synchronization pretty easy by message passing mechanism.
+
+Node being single threaded process can't leverage multiple CPUs, for which node cluster is highly recommended.
+
+
+
+JavaScript is single threaded so any particular callback will run on it's own and will run until completion without interruption (ignoring ES6 generators).
+
+Of course you can spawn multiple node processes using the cluster API and then it's possible that the same callback runs in parallel on two different processes.
+But that doesn't really matter because those two processes use their own v8 instance and their own node event loop.
+
+
+"""""""
+
+
+I am using node.js to write a web service, it calls an API for some data but I am limited by the API to a number of calls per month, so I wish to cache the data I retrieve from the API so I can serve it up with the cached data, and re-fetch the data from the API at a timed interval.
+
+Is this a good approach for this problem? And what caching framework should I use? I looked at node-redis but I don't think a key value store is appropriate for the data.
+
+
+
+28
+down vote
+accepted
+I would disagree with you regarding Redis. Redis is a very powerful key-value store that can easily be used for what you want. It is designed to have stuff dumped in it and taken out again. In your situation, you can easy cache the API response by saving it into Redis with the query as the key (if this is a REST API you're calling, you could just use the URL or serialized data as the key) and simply cache the response as a stringified JSON object (or XML string if you happen to be getting that).
+
+You can also set an expiry on the cached data, and it will be cleared when the time is expired.
+
+You could then wrap your API call in a helper function which checks the cache, and returns the value if it's present. If it's not it makes the API request, adds it to the cache, then returns it.
+
+
+
+push notification
+
+
+sachin ka koi abhi friend nhi hai..agar koi sachin ko friend request bhejta hai to sachin ko bar bar page kholne ki jrurat nhi hai..push notification  se kaam ho jaega
+
+var sachinfriend = ['hardik'];
+
+Riddhi sent request
+
+n1 : i will send notification to sachin about his new friend  dateTime
+
+
+
+
+************************************************************
 var abc ={a:'5',b:'6'};
 
 console.log(Object.keys(abc));

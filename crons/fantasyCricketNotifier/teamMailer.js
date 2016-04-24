@@ -10,6 +10,8 @@ var highest=0;
 var firstHighest={};
 var secondHighest={};
 var thirdHighest={};
+var fourthHighest={};
+var fifthHighest={};
 var topper={};
 var sectopper={};
 var thirdtopper={};
@@ -29,6 +31,7 @@ scoreMailer.getScore(function(err, result) {
   console.log(inventorySummary);
 
   var total = 0;
+  var captainTotal=0;
 
 
   for(k=0;k<inventorySummary.length;k++){
@@ -42,13 +45,22 @@ scoreMailer.getScore(function(err, result) {
         total=total+0;
       }
       else{
+
+        if(inventorySummary[k].players[j].name.indexOf('(C)')>-1){
+          captainTotal=captainTotal+parseInt(inventorySummary[k].players[j].match[i].score)
+          total=total+(2*parseInt(inventorySummary[k].players[j].match[i].score));
+        }
+        else{
         total=total+parseInt(inventorySummary[k].players[j].match[i].score);
         console.log(total);
       }
+      }
     }
   }
-  totalCalculator.push({name:inventorySummary[k].name,total:total})
+  total=total+(Number(inventorySummary[k].favTeam.win)*75);
+  totalCalculator.push({name:inventorySummary[k].name,total:total,captain:captainTotal})
   total=0;
+  captainTotal=0;
 }
 
 
@@ -57,7 +69,7 @@ console.log(totalCalculator);
 totalsUsedByOthers=totalCalculator.slice(0);
 console.log(totalsUsedByOthers);
 
-for(n=0;n<3;n++){
+for(n=0;n<5;n++){
   for(m=0;m<totalCalculator.length;m++){
 
     if(totalCalculator[m].total>highest){
@@ -74,6 +86,12 @@ for(n=0;n<3;n++){
   }
   if(n==2){
     thirdHighest=topper;
+  }
+  if(n==3){
+    fourthHighest=topper;
+  }
+  if(n==4){
+    fifthHighest=topper;
   }
 
   highest=0;
@@ -117,15 +135,15 @@ module.exports = function () {
    var smtpTransport = nodemailer.createTransport("SMTP",{
      service: "Gmail",  // sets automatically host, port and connection security settings
      auth: {
-       user: "hardik.munjal@polestarllp.com",
-       pass: "timeforchange1x"
+       user: "darakulaaz@gmail.com",
+       pass: "timeforchange1"
      }
    });
 
 //***************************** Main SMTP method **************************
 var smtp = function(email,callback) {
 
-
+console.log((Number(email.favTeam.win)*75));
   console.log('length is',totalsUsedByOthers.length);
   for(i=0;i<totalsUsedByOthers.length;i++){
 
@@ -133,23 +151,58 @@ var smtp = function(email,callback) {
     console.log(email.name);
     if(totalsUsedByOthers[i].name==email.name){
       var totalScored = totalsUsedByOthers[i].total;
+      var captainScored = totalsUsedByOthers[i].captain;
     }
   }
   console.log(totalScored);
 
 
-  var html='<html><head></head><body><p>Hi   '+email.name+'   !</p>';
+  var html='<html><head></head><body>'; 
 
-  html+='<h3><b>Note : * Player jetha has changed Finch to Warner due to exceptional case *</h3></p></hr>';
-  html+='<h1><b>Your Team is</b></h1>';
+  html+='<b style="color: #0000FF"><h2>^^^^^^^^^^^^^^^^ IPL Fantasy League ^^^^^^^^^^^^^^^^ </h2></b></hr><br><br>';
+  
+  html+='<p>Hi   '+email.name+'   !</p><br>';
+
+  html+='<b style="color: #FF0000"><h3>**************************** NOTE ****************************</h3></b></hr><br>';
+  html+='<b style="color: #780000">Winning Prize for Rank 1 : </b>50% of Total deposited money of xxx participants<br>';
+  html+='<b style="color: #780000">Winning Prize for Rank 2 : </b>30% of Total deposited money of xxx participants<br>';
+  html+='<b style="color: #780000">Winning Prize for Rank 3 : </b>20% of Total deposited money of xxx participants';
+  html+='<br></hr><h3>Entry Fees to be a xxx participant is <b>Rs 1500</b></h3>';
+  html+='</br><h5><b>xxx participants are : Jafar Goti Suar Hardik Jetha</h5></br></hr>';
+  html+='<b style="color: #FF0000"><h3>********************************************************************</h3></b></hr><br><br>';
+ 
+  html+='<b style="color: #FF0000"><h2>Now Buy Extra wildcard for Rs 100 and Rs 5O will be added progessively for further Wildcards, 15 points will be deducted after using each extra wildcard.& Money will be added to total deposited money</h2></b></hr><br>';
+
+
+  html+='<h1><b style="color: #006600">Your Selected Players are</b></h1>';
   html+='<ul><li>'+email.players[0].name+'</li>';
   html+='<li>'+email.players[1].name+'</li>';
   html+='<li>'+email.players[2].name+'</li>';
-  html+='<li>'+email.players[3].name+'</li></ul';
+  html+='<li>'+email.players[3].name+'</li>';
+  html+='<li>'+email.players[4].name+'</li>';
+  html+='<li>'+email.players[5].name+'</li>';
+  if(email.players[7]){
+    html+='<li>'+email.players[7].name+'</li>';
+  }
+  if(email.players[8]){
+    html+='<li>'+email.players[8].name+'</li>';
+  }
+  html+='<li>'+email.players[6].name+'</li></ul></br></hr>';
+  html+='<h1><b style="color: #006600">Your Supporting Team is</b></h1>';
+  html+='<ul><li>'+email.favTeam.team+'</li><li>Status:'+email.favTeam.win+'/'+email.favTeam.totalMatches+'</li></ul></br></hr>';
 
-  html+='<b>Your total score</b>';
+
+  html+='<h3><b style="color: #006600">Your Wild Card Status</b></h3>';
+  html+='<ul><li> Wild card 1 :'+email.wildCards.first+'</li><li> Wild card 2 :'+email.wildCards.second+'</li><li> Wild card 3 :'+email.wildCards.third+'</li></ul></br></hr>';
+
+
+  html+='<h3><b style="color: #006600">Notification</b></h3>';
+  html+='<ul><li> Suar #Wildcard:1 Rohit to Warner 16 april morning </li><li> Suar #Wildcard:2 Dhoni to Finch 16 april morning</li><li> Dharru #Wildcard:1 J.Butler to M.Pandey 16 april morning</li><li> Jafar #Wildcard:1 Guptil(Simmons) to Raina 16 april evening </li><li> Dharru #Wildcard:2 Guptil(Simmons) to Rohit 16 april evening </li><li> Firoz #Wildcard:1 Williamson to Duplesis 17 april morning </li><li> Goti #Wildcard:1 Butler to Devillers 18 april night </li><li> Suar #Wildcard:3 Gayle to DeKock 20 april morning </li><li> Binjo #Wildcard:1 Miller to ABD 20 april morning </li><li> Dharru #Wildcard:3 Gayle to ABD 20 april morning </li><li> Goti #Wildcard:2 Gayle to Dekock 16 april morning </li><li> Jetha #Wildcard:1 Gayle to DeKOck 20 april morning </li></ul></br></hr>';
+
+
+  html+='<b style="color: #006600">Your total score</b>';
   html+='<table class="tftable" border="1"><thead>';
-  html+='<tr><th>Player Name</th><th>Match 1</th><th>Match 2</th><th>Match 3</th><th>Match 4</th><th>Match 5</th><th>Match 6</th><th>Total Score</th></tr></thead><tbody>';
+  html+='<tr><th>Player Name</th><th>Match 1</th><th>Match 2</th><th>Match 3</th><th>Match 4</th><th>Match 5</th><th>Match 6</th><th>Match 7</th><th>Match 8</th><th>Match 9</th><th>Match 10</th><th>Match 11</th><th>Match 12</th><th>Match 13</th><th>Match 14</th><th>Total Score</th></tr></thead><tbody>';
   html+='<tr><td>'+email.players[0].name+'</td>';
   html+='<td>'+email.players[0].match[0].score+'</td>';
   html+='<td>'+email.players[0].match[1].score+'</td>';
@@ -157,15 +210,32 @@ var smtp = function(email,callback) {
   html+='<td>'+email.players[0].match[3].score+'</td>';
   html+='<td>'+email.players[0].match[4].score+'</td>';
   html+='<td>'+email.players[0].match[5].score+'</td>';
+  html+='<td>'+email.players[0].match[6].score+'</td>';
+  html+='<td>'+email.players[0].match[7].score+'</td>';
+  html+='<td>'+email.players[0].match[8].score+'</td>';
+  html+='<td>'+email.players[0].match[9].score+'</td>';
+  html+='<td>'+email.players[0].match[10].score+'</td>';
+  html+='<td>'+email.players[0].match[11].score+'</td>';
+  html+='<td>'+email.players[0].match[12].score+'</td>';
+  html+='<td>'+email.players[0].match[13].score+'</td>';
   html+='<td>'+(Number(email.players[0].match[0].score)+Number(email.players[0].match[1].score)+Number(email.players[0].match[2].score)+Number(email.players[0].match[3].score)+Number(email.players[0].match[4].score)+Number(email.players[0].match[5].score))+'</td></tr>';
 
   html+='<tr><td>'+email.players[1].name+'</td>';
-  html+='<td>'+email.players[1].match[0].score+'</td>';
+   html+='<td>'+email.players[1].match[0].score+'</td>';
   html+='<td>'+email.players[1].match[1].score+'</td>';
   html+='<td>'+email.players[1].match[2].score+'</td>';
   html+='<td>'+email.players[1].match[3].score+'</td>';
   html+='<td>'+email.players[1].match[4].score+'</td>';
   html+='<td>'+email.players[1].match[5].score+'</td>';
+  html+='<td>'+email.players[1].match[6].score+'</td>';
+  html+='<td>'+email.players[1].match[7].score+'</td>';
+  html+='<td>'+email.players[1].match[8].score+'</td>';
+  html+='<td>'+email.players[1].match[9].score+'</td>';
+  html+='<td>'+email.players[1].match[10].score+'</td>';
+  html+='<td>'+email.players[1].match[11].score+'</td>';
+  html+='<td>'+email.players[1].match[12].score+'</td>';
+  html+='<td>'+email.players[1].match[13].score+'</td>';
+ 
   html+='<td>'+(Number(email.players[1].match[0].score)+Number(email.players[1].match[1].score)+Number(email.players[1].match[2].score)+Number(email.players[1].match[3].score)+Number(email.players[1].match[4].score)+Number(email.players[1].match[5].score))+'</td></tr>';
 
   html+='<tr><td>'+email.players[2].name+'</td>';
@@ -175,6 +245,15 @@ var smtp = function(email,callback) {
   html+='<td>'+email.players[2].match[3].score+'</td>';
   html+='<td>'+email.players[2].match[4].score+'</td>';
   html+='<td>'+email.players[2].match[5].score+'</td>';
+  html+='<td>'+email.players[2].match[6].score+'</td>';
+  html+='<td>'+email.players[2].match[7].score+'</td>';
+  html+='<td>'+email.players[2].match[8].score+'</td>';
+  html+='<td>'+email.players[2].match[9].score+'</td>';
+  html+='<td>'+email.players[2].match[10].score+'</td>';
+  html+='<td>'+email.players[2].match[11].score+'</td>';
+  html+='<td>'+email.players[2].match[12].score+'</td>';
+  html+='<td>'+email.players[2].match[13].score+'</td>';
+
   html+='<td>'+(Number(email.players[2].match[0].score)+Number(email.players[2].match[1].score)+Number(email.players[2].match[2].score)+Number(email.players[2].match[3].score)+Number(email.players[2].match[4].score)+Number(email.players[2].match[5].score))+'</td></tr>';
 
   html+='<tr><td>'+email.players[3].name+'</td>';
@@ -184,23 +263,165 @@ var smtp = function(email,callback) {
   html+='<td>'+email.players[3].match[3].score+'</td>';
   html+='<td>'+email.players[3].match[4].score+'</td>';
   html+='<td>'+email.players[3].match[5].score+'</td>';
+  html+='<td>'+email.players[3].match[6].score+'</td>';
+  html+='<td>'+email.players[3].match[7].score+'</td>';
+  html+='<td>'+email.players[3].match[8].score+'</td>  ';
+  html+='<td>'+email.players[3].match[9].score+'</td>'; 
+  html+='<td>'+email.players[3].match[10].score+'</td>';
+  html+='<td>'+email.players[3].match[11].score+'</td>';
+  html+='<td>'+email.players[3].match[12].score+'</td>';
+  html+='<td>'+email.players[3].match[13].score+'</td>';
+
   html+='<td>'+(Number(email.players[3].match[0].score)+Number(email.players[3].match[1].score)+Number(email.players[3].match[2].score)+Number(email.players[3].match[3].score)+Number(email.players[3].match[4].score)+Number(email.players[3].match[5].score))+'</td></tr>';
 
-  html+='<b> Your Total Score Is ='+totalScored+'</b>';
+    html+='<tr><td>'+email.players[4].name+'</td>';
+   html+='<td>'+email.players[4].match[0].score+'</td>';
+  html+='<td>'+email.players[4].match[1].score+'</td>';
+  html+='<td>'+email.players[4].match[2].score+'</td>';
+  html+='<td>'+email.players[4].match[3].score+'</td>';
+  html+='<td>'+email.players[4].match[4].score+'</td>';
+  html+='<td>'+email.players[4].match[5].score+'</td>';
+  html+='<td>'+email.players[4].match[6].score+'</td>';
+  html+='<td>'+email.players[4].match[7].score+'</td>';
+  html+='<td>'+email.players[4].match[8].score+'</td>';
+  html+='<td>'+email.players[4].match[9].score+'</td>';
+  html+='<td>'+email.players[4].match[10].score+'</td>';
+  html+='<td>'+email.players[4].match[11].score+'</td>';
+  html+='<td>'+email.players[4].match[12].score+'</td>';
+  html+='<td>'+email.players[4].match[13].score+'</td>';
+
+  html+='<td>'+(Number(email.players[4].match[0].score)+Number(email.players[4].match[1].score)+Number(email.players[4].match[2].score)+Number(email.players[4].match[3].score)+Number(email.players[4].match[4].score)+Number(email.players[4].match[5].score))+'</td></tr>';
+
+  html+='<tr><td>'+email.players[5].name+'</td>';
+  html+='<td>'+email.players[5].match[0].score+'</td>';
+  html+='<td>'+email.players[5].match[1].score+'</td>';
+  html+='<td>'+email.players[5].match[2].score+'</td>';
+  html+='<td>'+email.players[5].match[3].score+'</td>';
+  html+='<td>'+email.players[5].match[4].score+'</td>';
+  html+='<td>'+email.players[5].match[5].score+'</td>';
+  html+='<td>'+email.players[5].match[6].score+'</td>';
+  html+='<td>'+email.players[5].match[7].score+'</td>';
+  html+='<td>'+email.players[5].match[8].score+'</td>';
+  html+='<td>'+email.players[5].match[9].score+'</td>';
+  html+='<td>'+email.players[5].match[10].score+'</td>';
+  html+='<td>'+email.players[5].match[11].score+'</td>';
+  html+='<td>'+email.players[5].match[12].score+'</td>';
+  html+='<td>'+email.players[5].match[13].score+'</td>';
+
+  html+='<td>'+(Number(email.players[5].match[0].score)+Number(email.players[5].match[1].score)+Number(email.players[5].match[2].score)+Number(email.players[5].match[3].score)+Number(email.players[5].match[4].score)+Number(email.players[5].match[5].score))+'</td></tr>';
+
+  html+='<tr><td>'+email.players[6].name+'</td>';
+  html+='<td>'+email.players[6].match[0].score+'</td>';
+  html+='<td>'+email.players[6].match[1].score+'</td>';
+  html+='<td>'+email.players[6].match[2].score+'</td>';
+  html+='<td>'+email.players[6].match[3].score+'</td>';
+  html+='<td>'+email.players[6].match[4].score+'</td>';
+  html+='<td>'+email.players[6].match[5].score+'</td>';
+  html+='<td>'+email.players[6].match[6].score+'</td>';
+  html+='<td>'+email.players[6].match[7].score+'</td>';
+  html+='<td>'+email.players[6].match[8].score+'</td>';
+  html+='<td>'+email.players[6].match[9].score+'</td>';
+  html+='<td>'+email.players[6].match[10].score+'</td>';
+  html+='<td>'+email.players[6].match[11].score+'</td>';
+  html+='<td>'+email.players[6].match[12].score+'</td>';
+  html+='<td>'+email.players[6].match[13].score+'</td>';
+
+  html+='<td>'+(Number(email.players[6].match[0].score)+Number(email.players[6].match[1].score)+Number(email.players[6].match[2].score)+Number(email.players[6].match[3].score)+Number(email.players[6].match[4].score)+Number(email.players[6].match[5].score))+'</td></tr>';
 
 
-  html+='</tbody></table>';
+ 
 
-  html+='</br><hr><h4>Top 3 Scoreboard Leader are</h4>';
+
+if(email.players[7]){
+   html+='<tr><td>'+email.players[7].name+'</td>';
+  html+='<td>'+email.players[7].match[0].score+'</td>';
+  html+='<td>'+email.players[7].match[1].score+'</td>';
+  html+='<td>'+email.players[7].match[2].score+'</td>';
+  html+='<td>'+email.players[7].match[3].score+'</td>';
+  html+='<td>'+email.players[7].match[4].score+'</td>';
+  html+='<td>'+email.players[7].match[5].score+'</td>';
+  html+='<td>'+email.players[7].match[6].score+'</td>';
+  html+='<td>'+email.players[7].match[7].score+'</td>';
+  html+='<td>'+email.players[7].match[8].score+'</td>';
+  html+='<td>'+email.players[7].match[9].score+'</td>';
+  html+='<td>'+email.players[7].match[10].score+'</td>';
+  html+='<td>'+email.players[7].match[11].score+'</td>';
+  html+='<td>'+email.players[7].match[12].score+'</td>';
+  html+='<td>'+email.players[7].match[13].score+'</td>';
+
+  html+='<td>'+(Number(email.players[7].match[0].score)+Number(email.players[7].match[1].score)+Number(email.players[7].match[2].score)+Number(email.players[7].match[3].score)+Number(email.players[7].match[4].score)+Number(email.players[7].match[5].score))+'</td></tr>';
+
+}
+
+
+if(email.players[8]){
+   html+='<tr><td>'+email.players[8].name+'</td>';
+  html+='<td>'+email.players[8].match[0].score+'</td>';
+  html+='<td>'+email.players[8].match[1].score+'</td>';
+  html+='<td>'+email.players[8].match[2].score+'</td>';
+  html+='<td>'+email.players[8].match[3].score+'</td>';
+  html+='<td>'+email.players[8].match[4].score+'</td>';
+  html+='<td>'+email.players[8].match[5].score+'</td>';
+  html+='<td>'+email.players[8].match[6].score+'</td>';
+  html+='<td>'+email.players[8].match[7].score+'</td>';
+  html+='<td>'+email.players[8].match[8].score+'</td>';
+  html+='<td>'+email.players[8].match[9].score+'</td>';
+  html+='<td>'+email.players[8].match[10].score+'</td>';
+  html+='<td>'+email.players[8].match[11].score+'</td>';
+  html+='<td>'+email.players[8].match[12].score+'</td>';
+  html+='<td>'+email.players[8].match[13].score+'</td>';
+
+  html+='<td>'+(Number(email.players[8].match[0].score)+Number(email.players[8].match[1].score)+Number(email.players[8].match[2].score)+Number(email.players[8].match[3].score)+Number(email.players[8].match[4].score)+Number(email.players[8].match[5].score))+'</td></tr>';
+
+}
+if(email.players[9]){
+   html+='<tr><td>'+email.players[9].name+'</td>';
+  html+='<td>'+email.players[9].match[0].score+'</td>';
+  html+='<td>'+email.players[9].match[1].score+'</td>';
+  html+='<td>'+email.players[9].match[2].score+'</td>';
+  html+='<td>'+email.players[9].match[3].score+'</td>';
+  html+='<td>'+email.players[9].match[4].score+'</td>';
+  html+='<td>'+email.players[9].match[5].score+'</td>';
+  html+='<td>'+email.players[9].match[6].score+'</td>';
+  html+='<td>'+email.players[9].match[7].score+'</td>';
+  html+='<td>'+email.players[9].match[8].score+'</td>';
+  html+='<td>'+email.players[9].match[9].score+'</td>';
+  html+='<td>'+email.players[9].match[10].score+'</td>';
+  html+='<td>'+email.players[9].match[11].score+'</td>';
+  html+='<td>'+email.players[9].match[12].score+'</td>';
+  html+='<td>'+email.players[9].match[13].score+'</td>';
+
+  html+='<td>'+(Number(email.players[9].match[0].score)+Number(email.players[9].match[1].score)+Number(email.players[9].match[2].score)+Number(email.players[9].match[3].score)+Number(email.players[9].match[4].score)+Number(email.players[9].match[5].score))+'</td></tr>';
+
+}
+    html+='</tbody></table>';
+
+    html+='<br></hr><b> Your Score Is ='+(totalScored-captainScored-(Number(email.favTeam.win)*75))+' <br> Your Captain Bonus is = '+captainScored+' <br>Your supporting team win Bonus is = '+(Number(email.favTeam.win)*75)+'</b>';
+    html+='<br><h3> Your Total Score Is ='+(totalScored)+'</h3>';
+
+  html+='</br><hr><b style="color: #006600"><h1>Top 3 Scoreboard Leader are</h1></b><hr></br>';
   html+='<ul><li>'+firstHighest.name+ ':' +firstHighest.total+'</li>';
   html+='<li>'+secondHighest.name+ ':' +secondHighest.total+'</li>';
   html+='<li>'+thirdHighest.name+ ':' +thirdHighest.total+'</li></ul>';
 
-  html+='</br><h5>'+firstHighest.name+ ' is Leading with the team</h5>';
+  html+='</br><hr><h3>Close Contenders are</h3></hr>';
+  html+='<ul><li>'+fourthHighest.name+ ':' +fourthHighest.total+'</li>';
+  html+='<li>'+fifthHighest.name+ ':' +fifthHighest.total+'</li></ul>';
+
+  html+='</br><hr><br><h5>'+firstHighest.name+ ' is Leading with the team</h5>';
   html+='<ul><li>'+topperTeam[0]+'</li>';
   html+='<li>'+topperTeam[1]+'</li>';
   html+='<li>'+topperTeam[2]+'</li>';
-  html+='<li>'+topperTeam[3]+'</li></ul>';
+  html+='<li>'+topperTeam[3]+'</li>';
+  html+='<li>'+topperTeam[4]+'</li>';
+  html+='<li>'+topperTeam[5]+'</li>';
+  if(topperTeam.length>7){
+    html+='<li>'+topperTeam[7]+'</li>';
+  }
+  if(topperTeam.length>8){
+    html+='<li>'+topperTeam[8]+'</li>';
+  }
+  html+='<li>'+topperTeam[6]+'</li></ul>';
 
   html+='<h2>Dont reply on this auto generated mail</h2><h4>You will recieve this mail twice a day</h4></body></html>';
 
@@ -209,9 +430,10 @@ var smtp = function(email,callback) {
 
     //***************************** email body configuration ********************************
     var emailConfig = {  //email options
-       from: "Hardik <hardik.munjal@polestarllp.com>", // sender address.  Must be the same as authenticated user if using Gmail.
+       from: "Hardi <darakulaaz@gmail.com>", // sender address.  Must be the same as authenticated user if using Gmail.
        to: email.email, // receiver
-       subject: "Your Scorecard Phase 2.2", // subject
+       //cc:'sidjain07@gmail.com,hardik.munjaal@gmail.com,mohd.jafar93@gmail.com,Anshulrocky13@gmail.com,prshnt.bhtt@gmail.com,Abhishek619garkoti@gmail.com,atul.agrawal@polestarllp.com',
+       subject: "Your Scorecard Phase 6.0", // subject
        text: "nodemailer", // body
        html: html
      };

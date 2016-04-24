@@ -14,13 +14,33 @@
 
 
 
+// for(i=0;i<10;i++){
+//   (function(num){
+//     setTimeout(function(){ console.log(num); }, 3000);  
+//   }(i))	
+// }
+
+
 for(i=0;i<10;i++){
-  (function(num){
-    setTimeout(function(){ console.log(num); }, 3000);  
-  }(i))	
+  
+ (function(num){ 
+  process.nextTick(function(){
+  	console.log(num);
+  });
+ }(i))
+
 }
 
 
+
+
+var counterArray = {
+           A : 3,
+           B : 4
+  };
+  counterArray["C"] = 1;
+
+  console.log(Object.keys(counterArray).length);
 
 // var obj = {dev: "/dev.json", test: "/test.json", prod: "/prod.json"};
 // var i = 0;

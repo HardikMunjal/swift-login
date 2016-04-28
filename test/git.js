@@ -49,6 +49,30 @@ take pull before starting any work
 
 git pull --rebase origin master
 
+if two guys has change on same file and same functionality then auto merging will fail
+
+we will see this type of error 
+
+Failed to merge in the changes.
+
+// <<<<<<< HEAD
+// 	console.log('this will shock you bro');
+// =======
+// 	console.log('this will fuck you bro');
+// }
+// >>>>>>> oh bc
+// }
+
+
+THen resolve it first, after that you will do
+
+git status (will tell you the file names)
+
+then do git add (filenames)
+
+git rebase --continue
+
+
 function test(){
 
 	console.log('this will fuck you bro');

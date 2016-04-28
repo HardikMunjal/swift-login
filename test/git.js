@@ -47,7 +47,11 @@ here origin is automatically set,when we do git clone
 
 take pull before starting any work 
 
-git bc
+git pull --rebase origin master
+
+function test(){
+	console.log('this will rock it bro');
+}
 
 
 

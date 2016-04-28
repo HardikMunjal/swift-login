@@ -50,7 +50,7 @@ take pull before starting any work
 git pull --rebase origin master
 
 function test(){
-	console.log('this will rock it bro');
+	console.log('this will shock you bro');
 }
 
 

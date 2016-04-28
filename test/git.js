@@ -47,7 +47,7 @@ here origin is automatically set,when we do git clone
 
 take pull before starting any work 
 
-git pull --rebase origin master
+git bc
 
 
 

@@ -173,6 +173,8 @@ console.log((Number(email.favTeam.win)*75));
  
   html+='<b style="color: #FF0000"><h2>Now Buy Extra wildcard for Rs 100 and Rs 5O will be added progessively for further Wildcards, 15 points will be deducted after using each extra wildcard.& Money will be added to total deposited money</h2></b></hr><br>';
 
+  html+='<b style="color: #FF0000"><h1>NOTE : You can use extra wildcard for 100 points and 50 points will be added progessively for further Wildcards, </h1></b></hr><br>';
+
 
   html+='<h1><b style="color: #006600">Your Selected Players are</b></h1>';
   html+='<ul><li>'+email.players[0].name+'</li>';
@@ -187,6 +189,9 @@ console.log((Number(email.favTeam.win)*75));
   if(email.players[8]){
     html+='<li>'+email.players[8].name+'</li>';
   }
+  if(email.players[9]){
+    html+='<li>'+email.players[9].name+'</li>';
+  }
   html+='<li>'+email.players[6].name+'</li></ul></br></hr>';
   html+='<h1><b style="color: #006600">Your Supporting Team is</b></h1>';
   html+='<ul><li>'+email.favTeam.team+'</li><li>Status:'+email.favTeam.win+'/'+email.favTeam.totalMatches+'</li></ul></br></hr>';
@@ -197,7 +202,7 @@ console.log((Number(email.favTeam.win)*75));
 
 
   html+='<h3><b style="color: #006600">Notification</b></h3>';
-  html+='<ul><li> Suar #Wildcard:1 Rohit to Warner 16 april morning </li><li> Suar #Wildcard:2 Dhoni to Finch 16 april morning</li><li> Dharru #Wildcard:1 J.Butler to M.Pandey 16 april morning</li><li> Jafar #Wildcard:1 Guptil(Simmons) to Raina 16 april evening </li><li> Dharru #Wildcard:2 Guptil(Simmons) to Rohit 16 april evening </li><li> Firoz #Wildcard:1 Williamson to Duplesis 17 april morning </li><li> Goti #Wildcard:1 Butler to Devillers 18 april night </li><li> Suar #Wildcard:3 Gayle to DeKock 20 april morning </li><li> Binjo #Wildcard:1 Miller to ABD 20 april morning </li><li> Dharru #Wildcard:3 Gayle to ABD 20 april morning </li><li> Goti #Wildcard:2 Gayle to Dekock 16 april morning </li><li> Jetha #Wildcard:1 Gayle to DeKOck 20 april morning </li></ul></br></hr>';
+  html+='<ul><li> Suar #Wildcard:1 Rohit to Warner 16 april morning </li><li> Suar #Wildcard:2 Dhoni to Finch 16 april morning</li><li> Dharru #Wildcard:1 J.Butler to M.Pandey 16 april morning</li><li> Jafar #Wildcard:1 Guptil(Simmons) to Raina 16 april evening </li><li> Dharru #Wildcard:2 Guptil(Simmons) to Rohit 16 april evening </li><li> Firoz #Wildcard:1 Williamson to Duplesis 17 april morning </li><li> Goti #Wildcard:1 Butler to Devillers 18 april night </li><li> Suar #Wildcard:3 Gayle to DeKock 20 april morning </li><li> Binjo #Wildcard:1 Miller to ABD 20 april morning </li><li> Dharru #Wildcard:3 Gayle to ABD 20 april morning </li><li> Goti #Wildcard:2 Gayle to Dekock 20 april morning </li><li> Jetha #Wildcard:1 Gayle to DeKOck 20 april morning </li><li> Firoz #Wildcard:2 Simmons to Macculum 22 april morning </li><li> Jetha #Wildcard:2 KP to Duplesis 24 april evening </li><li> Jafar #Wildcard:2 inForm Miller to Gambhir 24 april evening </li></ul></br></hr>';
 
 
   html+='<b style="color: #006600">Your total score</b>';

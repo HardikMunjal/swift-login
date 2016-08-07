@@ -17,3 +17,10 @@ for(j=0;j<array.length;j++)
  }
 
  bubble_sort();
+
+
+ //bubble sort is very slow..takes o(n2) time in worst case and average case
+
+ //it sorts every adjacent pairs ,,after 1 cycle 1 by 1 element will get sorted to right
+
+ 

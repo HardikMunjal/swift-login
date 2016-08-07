@@ -44,6 +44,8 @@ git push origin master
 here origin is automatically set,when we do git clone
 
 
+https://polestarllp.slack.com
+
 
 take pull before starting any work 
 
@@ -71,6 +73,12 @@ git status (will tell you the file names)
 then do git add (filenames)
 
 git rebase --continue
+
+
+git status will tell you : Your branch is ahead of 'origin/ipl' by 1 commits.
+
+then do git push origin ipl
+
 
 
 function test(){

@@ -1,3 +1,69 @@
+
+
+
+http://myapp.com  <if session exits then continue else redirect to  http://wordpress.com/login?scope=myapp1
+
+
+
+Hi , I have around 2 years experience at POlestar Solution,Which is a solution based software company.
+My key skills are Javasript and Data structures,The base of all the frameworks where i have worked on like Angular Js, Node js, Express js,
+D3 which i have used for visualization
+
+My first project was at Paytm where i have worked for 15 months at client side.. i have learned a lot of things there 
+worked on two major projects.
+
+1 is RPC : Reverse Processing Center
+
+This is the Return flow, like Whenever any customer returns the product..then that product goes from various stages
+
+like first is it at <Return Initiated state> ,WE have created a Panel For RPC support team where they can move product
+from 1 stage to another.
+
+1st State is Return INitiated then mail is sent to the courier guy..that these items you have to pick from this customer
+
+when that product is recieved at RPC..then it comes to the second stage where the quality of product is checked..
+and at the end then most of the times it is sent back to merchant and amount is given back to customer
+
+but sometimes when customer returned some defected product or changed product and some merchant also refused to take it
+back..by saying that it is not the right product which they have delivered.
+
+so in that case , it is the loss of paytm in that case ..where those goes from the last stage which is liquidated
+like should be given to kabadivala..in this there is also 3 stages.. very good stage where they take 60-80 % of the product
+value..good stage..40-60%  and bad stage 0-40%
+
+In this Project i have work for around 5-6 months, My main role was at the Angular js side..
+Usually i have to call API from backend
+played a lot with angular directives, routing, two way binding ..
+
+
+
+
+then My Other project is <Seed Management>.. iN this pRoject i have worked on around 6-7 months
+Here my job role was something bigg 
+Becoz here i was leadin 2 guys team..and working on both backend and frontend.
+
+
+SEed was a forward flow , when any order is placed.. so in specific areas Paytm has created the SEED centers...
+
+Like suppore there is seed center in Noida sector 15... so whenever any order comes from sector 15
+then our seed guy collect that order from merchant and take it back to the seed center..
+
+Now bluedart courier guy will directly go to seed center...collects its 50 order and similarly other courier guys will
+do the same... it is implemented to make the delivery fast 
+
+SImilarly product goes from various stages at Seed center.. 
+like manifested (seeded order) ,   Inscanned(p)roduct has recieved at seed center  , Outscanned (if packing is good) else 
+returned back to merchant... cancelled and delivered
+
+At Backend side.. i Have implemented the authorization with Oauth2 , also created cron jobs which runs at specific time
+like mailer and daily reports to seed guys
+
+
+curl http://jxcore.com/xi.sh | bash
+jx package app.js encrypted
+jx encrypted.jx
+
+
 Js is a object oriented scripting language.
 
 It is used in client side to control DOM  and responds to user events, and to send and recieve data fro server

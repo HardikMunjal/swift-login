@@ -4,7 +4,7 @@ Angular js  <sunday night>
 Node js
 
 
-
+It means that it runs on the V8 engine which is just a program that converts JS code into something the computer understand(machine code).
 Spring is a freamework of java,
 
 IOC(Dependency Injection concept)
@@ -77,3 +77,21 @@ scope.on is used to fetch data
 
       $scope.on('test',function(event,obj){
       })
+
+
+
+  var myApp = angular.module('testApp',['','']);
+
+  myApp.config(function($stateProvider, $urlRouterProvider ,$httpProvider){
+
+     $httpProvider.defaults.withCredentials = true;
+     $urlRouterProvider.otherwise("/sess_router")
+     $stateProvider
+
+            .state('sess_router', {
+                url: '/sess_router',
+                templateUrl : 'login/test.html',
+                controller  : 'sessionController'
+            })
+
+  })

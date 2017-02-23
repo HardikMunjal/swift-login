@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
             user: 'root',
             password : 'root',
             port : 3306, //port mysql
-            database:'swiftmkt'
+            database:'myfantasy'
 });
 
 console.log('coming here');
